@@ -1,12 +1,17 @@
 package se.zust.badgateway.mapper;
 
-import se.zust.badgateway.pojo.Bus;
+import se.zust.badgateway.pojo.po.BusPO;
 
 import java.util.List;
 
 public interface BusMapper {
-    Bus getBusById(String id);
-    List<Bus> listBus();
+    BusPO getBusById(String id);
+
+    List<BusPO> listBus();
+
+    void addBus(BusPO busPO);
+
     void deleteBusById(String id);
-    void updateBus(Bus bus);
+
+    void updateBus(BusPO busPO);
 }

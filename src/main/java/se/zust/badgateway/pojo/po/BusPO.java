@@ -1,4 +1,4 @@
-package se.zust.badgateway.pojo;
+package se.zust.badgateway.pojo.po;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Bus {
+public class BusPO {
     private String id;
     private String seat;
     private String brand;
