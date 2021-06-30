@@ -1,6 +1,8 @@
-package pojo;
+package se.zust.badgateway.pojo;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
@@ -14,8 +16,8 @@ public class Bus {
     private String brand;
     private String id;
     private String seat;
-    private LocalDateTime registerTime;
     private String insuranceDate;
     private String drivingLicense;
-    private int appointments;
+    private Integer appointments;
+    private LocalDateTime registerTime;
 }

@@ -1,4 +1,4 @@
-package pojo;
+package se.zust.badgateway.pojo;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,9 +14,9 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 public class User {
-    private String name;
     private UUID id;
+    private String name;
     private String password;
     private String identity;
-    private int tel;
+    private String telephone;
 }

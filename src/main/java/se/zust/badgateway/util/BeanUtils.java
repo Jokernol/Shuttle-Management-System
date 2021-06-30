@@ -1,4 +1,4 @@
-package zust.badgateway.util;
+package se.zust.badgateway.util;
 
 import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Field;
