@@ -13,9 +13,9 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Bus {
-    private String brand;
     private String id;
     private String seat;
+    private String brand;
     private String insuranceDate;
     private String drivingLicense;
     private Integer appointments;
