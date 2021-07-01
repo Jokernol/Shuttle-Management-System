@@ -1,4 +1,4 @@
-package se.zust.badgateway.service;
+package se.zust.badgateway.Service;
 
 import org.apache.ibatis.session.SqlSession;
 import org.junit.Test;

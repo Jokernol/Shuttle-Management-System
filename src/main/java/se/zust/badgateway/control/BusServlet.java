@@ -1,11 +1,11 @@
-package se.zust.badgateway.Servlet;
+package se.zust.badgateway.control;
 
+import se.zust.badgateway.Service.BusService;
 import se.zust.badgateway.pojo.po.BusPO;
 import se.zust.badgateway.util.BeanUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -17,18 +17,24 @@ import java.io.IOException;
 public class BusServlet extends Basis {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doGet(req, resp);
+
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         BusPO bus = BeanUtils.Request2Bean(req,BusPO.class);
-
+        BusService busService = new BusService();
+        boolean i = busService.addBus(bus);
+        String info;
+        req.getRequestDispatcher("WEB-INF/Admin.jsp").forward(req,resp);
     }
 
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPut(req, resp);
+        BusPO bus = BeanUtils.Request2Bean(req,BusPO.class);
+        BusService busService = new BusService();
+
+
     }
 
     @Override

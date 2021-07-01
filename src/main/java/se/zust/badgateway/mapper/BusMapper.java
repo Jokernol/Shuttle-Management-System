@@ -4,14 +4,17 @@ import se.zust.badgateway.pojo.po.BusPO;
 
 import java.util.List;
 
+/**
+ * @author 25878
+ */
 public interface BusMapper {
     BusPO getBusById(String id);
 
     List<BusPO> listBus();
 
-    void addBus(BusPO busPO);
+    int addBus(BusPO busPO);
 
-    void deleteBusById(String id);
+    int  deleteBusById(String id);
 
-    void updateBus(BusPO busPO);
+    int  updateBus(BusPO busPO);
 }
