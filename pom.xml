@@ -76,6 +76,16 @@
       <version>RELEASE</version>
       <scope>compile</scope>
     </dependency>
+    <dependency>
+      <groupId>org.webjars</groupId>
+      <artifactId>jquery</artifactId>
+      <version>3.5.1</version>
+    </dependency>
+    <dependency>
+      <groupId>com.alibaba</groupId>
+      <artifactId>fastjson</artifactId>
+      <version>1.2.75</version>
+    </dependency>
   </dependencies>
 
   <build>
@@ -88,7 +98,7 @@
         <configuration>
           <scanIntervalSeconds>5</scanIntervalSeconds>
           <webApp>
-            <contextPath>/app</contextPath>
+            <contextPath></contextPath>
           </webApp>
           <httpConnector>
             <port>8084</port>

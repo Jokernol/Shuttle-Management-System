@@ -17,4 +17,5 @@ public class UserPO {
     private String password;
     private String identity;
     private String telephone;
+    private Integer type;
 }

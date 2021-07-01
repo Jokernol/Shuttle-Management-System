@@ -10,9 +10,10 @@
 <c:set value="${pageContext.request.contextPath}" var="path" scope="page"/>
 <html>
 <head>
-    <title>欢迎访问班车管理系统</title>
-    <link rel="stylesheet" type="text/css" href="${path}/css/login.css">
-    <script type="text/javascript" src="${path}/js/login.js"></script>
+  <title>欢迎访问班车管理系统</title>
+  <link rel="stylesheet" type="text/css" href="${path}/css/login.css">
+  <script src="http://libs.baidu.com/jquery/2.1.4/jquery.min.js"></script>
+  <script type="text/javascript" src="${path}/js/login.js"></script>
 </head>
 <body>
 <div class="header">
@@ -36,7 +37,7 @@
             </div>
         </div>
       <div class="action">
-        <div class="btn" id="login" >login</div>
+        <div class="btn" id="login" onclick="login()">login</div>
         <div class="btn" id="regist">regist</div>
       </div>
     </div>
@@ -44,7 +45,7 @@
 <div class="footer">
     <footer>
         <a href="">关于我们&nbsp;</a>
-        <a href="免费邮"></a>
+        <a href="">免费邮</a>
         <a href="">官方博客</a>
         <a href="">客户服务</a>
         <a href="">隐私政策|</a>

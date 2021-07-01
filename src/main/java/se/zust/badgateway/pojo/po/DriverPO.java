@@ -1,21 +1,19 @@
 package se.zust.badgateway.pojo.po;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
-
 /**
- * @author 王怀瑾
+ * @author 韩成峰
  */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class RosterPO {
+public class DriverPO {
     private String id;
-    private String driver;
-    private String group;
-    private String busId;
-    private LocalDateTime departureTime;
+    private String name;
+    private String address;
+    private String telephone;
+    private Integer age;
+    private Integer drivingExperience;
 }
