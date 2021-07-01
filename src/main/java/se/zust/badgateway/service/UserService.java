@@ -2,6 +2,7 @@ package se.zust.badgateway.service;
 
 import org.apache.ibatis.session.SqlSession;
 import se.zust.badgateway.mapper.UserMapper;
+import se.zust.badgateway.pojo.dto.DriverDTO;
 import se.zust.badgateway.pojo.dto.RegisterDTO;
 import se.zust.badgateway.pojo.dto.UserDTO;
 import se.zust.badgateway.pojo.po.UserPO;

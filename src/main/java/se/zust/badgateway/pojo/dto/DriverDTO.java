@@ -1,4 +1,6 @@
-package se.zust.badgateway.pojo.po;
+package se.zust.badgateway.pojo.dto;
+
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,11 +11,11 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class DriverPO {
-    private String id;
+public class DriverDTO {
     private String name;
     private String address;
+    private String telephone;
     private Integer age;
     private Integer drivingExperience;
-    private String telephone;
+
 }
