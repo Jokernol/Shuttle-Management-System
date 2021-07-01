@@ -1,22 +1,16 @@
-package se.zust.badgateway.pojo;
+package se.zust.badgateway.pojo.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.UUID;
-
 /**
- * @author fang
+ * @author zhu
  */
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class User {
-    private UUID id;
+public class UserDTO {
     private String name;
     private String password;
-    private String identity;
-    private String telephone;
 }

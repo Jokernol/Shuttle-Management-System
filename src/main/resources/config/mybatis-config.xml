@@ -3,7 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
-  <environments default="mariadb">
+  <environments default="mysql">
     <environment id="mariadb">
       <transactionManager type="JDBC"/>
       <dataSource type="POOLED">
@@ -16,10 +16,10 @@
     <environment id="mysql">
       <transactionManager type="JDBC"/>
       <dataSource type="POOLED">
-        <property name="driver" value="${driver}"/>
-        <property name="url" value="${url}"/>
-        <property name="username" value="${username}"/>
-        <property name="password" value="${password}"/>
+        <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/class_design?serverTimezone=UTC"/>
+        <property name="username" value="root"/>
+        <property name="password" value="wfy258789"/>
       </dataSource>
     </environment>
   </environments>
