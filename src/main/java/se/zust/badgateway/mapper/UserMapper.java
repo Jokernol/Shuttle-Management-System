@@ -15,6 +15,7 @@ public interface UserMapper {
 
     UserPO getUserByUserName(String userName);
 
+    @Select("select * from user")
     List<UserPO> listUser();
 
     @Insert("insert user(id,name,password,identity,telephone) values (#{id}, #{name}, #{password}, #{identity}, #{telephone})")

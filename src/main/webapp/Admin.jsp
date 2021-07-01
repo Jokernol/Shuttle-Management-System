@@ -11,6 +11,10 @@
   <title>Admin</title>
 </head>
 <body>
-
+<form action="${pageContext.request.contextPath}/station.do" method="post">
+  <input type="text" name="position">
+  <input type="text" name="positionName">
+  <input type="submit" value="提交">
+</form>
 </body>
 </html>

@@ -13,7 +13,7 @@ import java.io.IOException;
 /**
  * @author 王怀瑾
  */
-@WebServlet("Bus")
+@WebServlet("/bus.do")
 public class BusServlet extends Basis {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

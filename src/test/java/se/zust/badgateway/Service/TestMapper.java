@@ -2,9 +2,13 @@ package se.zust.badgateway.Service;
 
 import org.apache.ibatis.session.SqlSession;
 import org.junit.Test;
+import se.zust.badgateway.mapper.StationMapper;
 import se.zust.badgateway.mapper.UserMapper;
+import se.zust.badgateway.pojo.po.StationPO;
 import se.zust.badgateway.pojo.po.UserPO;
 import se.zust.badgateway.util.MybatisUtils;
+
+import java.util.List;
 
 public class TestMapper {
 
@@ -12,10 +16,13 @@ public class TestMapper {
     public void testMapper() {
         SqlSession sqlSession = MybatisUtils.getSqlSession();
 
-        UserMapper mapper = sqlSession.getMapper(UserMapper.class);
+        StationMapper  mapper = sqlSession.getMapper(StationMapper.class);
 
-        mapper.addUser(new UserPO("2", "1", "1", "1", "1"));
+        List<StationPO> userPOList = mapper.listStastion();
 
+        for (StationPO user : userPOList) {
+            System.out.println(user.toString());
+        }
         sqlSession.commit();
         sqlSession.close();
     }
