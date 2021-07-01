@@ -1,4 +1,4 @@
-package se.zust.badgateway.Servlet;
+package se.zust.badgateway.controller;
 
 import se.zust.badgateway.pojo.po.BusPO;
 import se.zust.badgateway.util.BeanUtils;
@@ -14,7 +14,7 @@ import java.io.IOException;
  * @author 王怀瑾
  */
 @WebServlet("Bus")
-public class BusServlet extends Basis {
+public class BusServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         super.doGet(req, resp);
