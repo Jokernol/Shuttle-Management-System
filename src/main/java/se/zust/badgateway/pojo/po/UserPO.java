@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class UserPO {
     private String id;
-    private String name;
+    private String username;
     private String password;
     private String identity;
     private String telephone;

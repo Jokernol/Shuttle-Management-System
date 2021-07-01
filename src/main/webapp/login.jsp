@@ -30,15 +30,15 @@
         </div>
         <div class="input-form">
             <div class="border-form">
-                <input type="text" name="username" placeholder="username" class="border-item" >
+                <input type="text" name="username" placeholder="username" class="border-item" required="required">
             </div>
             <div class="border-form">
-                <input type="password" name="password" placeholder="password" class="border-item">
+                <input type="password" name="password" placeholder="password" class="border-item" required="required">
             </div>
         </div>
       <div class="action">
         <div class="btn" id="login" onclick="login()">login</div>
-        <div class="btn" id="regist">regist</div>
+        <div class="btn" id="regist" onclick="regist()">regist</div>
       </div>
     </div>
 </div>

@@ -37,14 +37,14 @@
 		}
 		.form{
 			position: absolute;
-			top: 10%;
+			top: 5%;
 			margin-left: 60%;
     		width: 230px;
     		background: linear-gradient(to bottom,#6E8B3D,#66cccc);
     		color: #FFFFFF;
     		border-radius: 2px;
     		padding: 40px;
-    		height: 60%;
+    		height: 70%;
 		}
 		.form .main-header{
     		text-align: center;

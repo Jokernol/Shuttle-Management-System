@@ -1,16 +1,19 @@
 package se.zust.badgateway.pojo.dto;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * @author zhu
+ * @author 韩成峰
  */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserDTO {
+public class RegisterDTO {
     private String username;
     private String password;
+    private String identity;
+    private String telephone;
 }

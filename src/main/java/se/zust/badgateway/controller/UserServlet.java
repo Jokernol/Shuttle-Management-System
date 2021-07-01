@@ -1,5 +1,6 @@
 package se.zust.badgateway.controller;
 
+import se.zust.badgateway.pojo.dto.RegisterDTO;
 import se.zust.badgateway.pojo.dto.UserDTO;
 import se.zust.badgateway.service.UserService;
 import se.zust.badgateway.util.BeanUtils;
@@ -20,15 +21,7 @@ import java.io.PrintWriter;
 public class UserServlet extends HttpServlet {
     UserService userService=new UserService();
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doGet(req, resp);
-    }
-    @Override
-    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPut(req, resp);
-    }
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         UserDTO userDTO = BeanUtils.Request2Bean(req,UserDTO.class);
         if(userDTO!=null){
             PrintWriter writer=res.getWriter();
@@ -51,6 +44,30 @@ public class UserServlet extends HttpServlet {
             }
         }
 
+
+    }
+    @Override
+    protected void doPut(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+        RegisterDTO userDTO = BeanUtils.Request2Bean(req,RegisterDTO.class);
+        if(userDTO!=null){
+            int result=userService.regist(userDTO);
+            PrintWriter writer=res.getWriter();
+            switch (result) {
+                case 0:
+                    writer.write("0");
+                    break;
+                case 1:
+                    writer.write("1");
+                    break;
+                default:
+                    req.getRequestDispatcher("WEB-INF/userHome.jsp").forward(req, res);
+                    break;
+            }
+        }
+    }
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
+        super.doPost(req, res);
     }
 
 }
