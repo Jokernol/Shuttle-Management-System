@@ -1,4 +1,4 @@
-package se.zust.badgateway.servlet;
+package se.zust.badgateway.controller;
 
 import se.zust.badgateway.service.UserService;
 
