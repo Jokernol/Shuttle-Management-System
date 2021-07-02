@@ -24,7 +24,7 @@
 <div class="main" >
   <div class="form">
     <div class="main-header">
-      账号登录
+      账号注册
     </div>
     <div class="input-form">
       <div class="border-form">
