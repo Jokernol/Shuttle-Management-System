@@ -25,7 +25,7 @@
 .main{
     border:0;
     background-size: cover;
-    background-image:url(../image/bg.jpg);
+    background-image:url(../image/bg.png);
     width: 100%;
     height: 580px;
     background-repeat: no-repeat;
@@ -40,7 +40,7 @@
     top: 5%;
     margin-left: 60%;
     width: 230px;
-    background: linear-gradient(to bottom,#6E8B3D,#66cccc);
+    background: linear-gradient(to bottom,#4169E1,#FFFFFF);
     color: #FFFFFF;
     border-radius: 2px;
     padding: 40px;
@@ -64,7 +64,6 @@
     text-transform: uppercase;
 }
 .form .input-form .border-form{
-    background-image: linear-gradient(to right,#FFFFF0,#7CFC00);
     width: 100%;
     height: 50px;
     margin-bottom: 20px;
@@ -77,8 +76,7 @@
     height:calc(100% - 4px);
     width: calc(100% - 4px);
     border-radius: 30px;
-    background-color: #FFFFE0;
-    color: black;
+    background-color:#A1B5F0;
 }
 .form .action{
     display: flex;
@@ -87,13 +85,14 @@
 .form .action .btn{
     width: 60%;
     text-transform: uppercase;
-    border: 2px solid #0e92b3;
+    border: 1px solid #A1B5F0;
     text-align: center;
     line-height: 50px;
     border-radius: 30px;
     cursor: pointer;
     transition:0.2s;
+    color: #A1B5F0;
 }
 .form .action .btn:hover{
-    background-color: #0e92b3;
+    background-color: #757575;
 }

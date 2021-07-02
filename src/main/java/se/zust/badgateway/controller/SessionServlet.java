@@ -34,11 +34,11 @@ public class SessionServlet extends BaseServlet {
             switch (result) {
                 case 0:
                     httpSession.setAttribute("userDO", userDO);
-                    req.getRequestDispatcher("WEB-INF/adminHome.jsp").forward(req, resp);
+                    req.getRequestDispatcher("/index.jsp").forward(req, resp);
                     break;
                 case 1:
                     httpSession.setAttribute("userDO", userDO);
-                    req.getRequestDispatcher("WEB-INF/userHome.jsp").forward(req, resp);
+                    req.getRequestDispatcher("/index.jsp").forward(req, resp);
                     break;
                 default:
                     req.setAttribute("info", "error");
