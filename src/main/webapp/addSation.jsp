@@ -91,7 +91,7 @@
 </script>
 <form action="${pageContext.request.contextPath}/station.do" method="post">
   车站名:
-  <input name="positionName" >
+  <input name="position" >
   <input type="text" id="lngX" name="lngX" value=""  hidden/>
   <input type="text" id="latY" name="latY" value=""  hidden/>
   <input onclick="return isNull()" value="提交" type="submit" >

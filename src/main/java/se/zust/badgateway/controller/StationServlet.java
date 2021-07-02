@@ -1,6 +1,6 @@
 package se.zust.badgateway.controller;
 
-import se.zust.badgateway.service.Impl.StationService1;
+import se.zust.badgateway.service.Impl.StationService;
 import se.zust.badgateway.pojo.DO.StationDO;
 import se.zust.badgateway.util.BeanUtils;
 
@@ -23,7 +23,7 @@ public class StationServlet extends HttpServlet {
 
         String url = req.getServletPath();
         String eUrl = url.substring(url.lastIndexOf("/")+1);
-        StationService1 stationService1 = new StationService1();
+        StationService stationService1 = new StationService();
         List<StationDO> stationList = stationService1.allStation();
         HttpSession session = req.getSession();
         session.setAttribute("stationList",stationList);
@@ -33,7 +33,7 @@ public class StationServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         StationDO stationPo = BeanUtils.Request2Bean(req, StationDO.class);
-        StationService1 stationService1 = new StationService1();
+        StationService stationService1 = new StationService();
         boolean i = stationService1.addStation(stationPo);
         req.getRequestDispatcher("addSation.jsp").forward(req,resp);
     }

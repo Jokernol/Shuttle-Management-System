@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * @author 王怀瑾
  */
-public class StationService1 {
+public class StationService {
     public boolean addStation(StationDO stationPo) {
         System.out.print("sssss" + ObjectUtils.isAnyFiledNull(stationPo));
         if (!ObjectUtils.isAnyFiledNull(stationPo)) {
@@ -30,7 +30,6 @@ public class StationService1 {
 
         StationMapper mapper = sqlSession.getMapper(StationMapper.class);
         List<StationDO> S = mapper.listStastion();
-
         sqlSession.commit();
 
         sqlSession.close();
