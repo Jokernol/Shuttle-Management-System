@@ -1,4 +1,4 @@
-package se.zust.badgateway.pojo.dto;
+package se.zust.badgateway.pojo.DTO;
 
 
 import lombok.AllArgsConstructor;
@@ -11,11 +11,9 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class DriverDTO {
-    private String name;
-    private String address;
+public class RegisterDTO {
+    private String username;
+    private String password;
+    private String identity;
     private String telephone;
-    private Integer age;
-    private Integer drivingExperience;
-
 }

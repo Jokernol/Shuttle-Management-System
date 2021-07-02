@@ -1,8 +1,7 @@
 package se.zust.badgateway.controller;
 
-import se.zust.badgateway.pojo.dto.DriverDTO;
-import se.zust.badgateway.pojo.dto.RegisterDTO;
-import se.zust.badgateway.service.DriverService;
+import se.zust.badgateway.pojo.DTO.DriverDTO;
+import se.zust.badgateway.service.Impl.DriverServiceImpl;
 import se.zust.badgateway.util.BeanUtils;
 
 import javax.servlet.annotation.WebServlet;
@@ -17,12 +16,12 @@ import java.io.PrintWriter;
  */
 @WebServlet("/Driver")
 public class DriverServlet extends HttpServlet {
-    DriverService driverService =new DriverService();
+    DriverServiceImpl driverServiceImpl =new DriverServiceImpl();
     @Override
     protected  void doPut(HttpServletRequest req, HttpServletResponse res) throws IOException {
         DriverDTO driverDTO= BeanUtils.Request2Bean(req,DriverDTO.class);
         if(driverDTO!=null){
-            int result=driverService.addDriver(driverDTO);
+            int result= driverServiceImpl.addDriver(driverDTO);
             PrintWriter writer=res.getWriter();
             switch (result){
                 case 0:

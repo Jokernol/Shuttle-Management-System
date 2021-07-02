@@ -1,6 +1,6 @@
 package se.zust.badgateway.controller;
 
-import se.zust.badgateway.pojo.po.BusPO;
+import se.zust.badgateway.pojo.DO.BusDO;
 import se.zust.badgateway.util.BeanUtils;
 
 import javax.servlet.ServletException;
@@ -32,7 +32,7 @@ public class BusServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        BusPO bus = BeanUtils.Request2Bean(req,BusPO.class);
+        BusDO bus = BeanUtils.Request2Bean(req, BusDO.class);
     }
 
 }

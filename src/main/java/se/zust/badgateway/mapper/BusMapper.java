@@ -4,21 +4,21 @@ import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
-import se.zust.badgateway.pojo.po.BusPO;
+import se.zust.badgateway.pojo.DO.BusDO;
 
 import java.util.List;
 
 public interface BusMapper {
     @Select("select * from bus where id = #{id}")
-    BusPO getBusById(String id);
+    BusDO getBusById(String id);
 
     @Select("select * from bus")
-    List<BusPO> listBus();
+    List<BusDO> listBus();
 
     @Insert("insert bus " +
         "values (#{id}, #{seat}, #{brand}, #{insuranceDate}, #{drivingLicense}, #{appointments}, #{registerTime})"
     )
-    void insertBus(BusPO busPO);
+    void insertBus(BusDO busDO);
 
     @Delete("delete from bus where id = #{id}")
     void deleteBusById(String id);
@@ -28,5 +28,5 @@ public interface BusMapper {
         "driving_license = #{drivingLicense}, appointments = #{appointments}, register_time = #{registerTime}" +
         "where id = #{id}"
     )
-    void updateBus(BusPO busPO);
+    void updateBus(BusDO busDO);
 }

@@ -1,21 +1,16 @@
-package se.zust.badgateway.pojo.po;
+package se.zust.badgateway.pojo.DTO;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * @author 王怀瑾
+ * @author zhu
  */
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserPO {
-    private String id;
+public class LoginDTO {
     private String username;
     private String password;
-    private String identity;
-    private String telephone;
-    private Integer type;
 }

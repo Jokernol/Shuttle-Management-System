@@ -24,7 +24,8 @@ public final class BeanUtils {
     public static <T> T Request2Bean(HttpServletRequest req, Class<T> clazz) {
 
         try {
-            T bean = clazz.newInstance();
+
+            T bean = clazz.getDeclaredConstructor().newInstance();
 
             Enumeration<String> enumeration = req.getParameterNames();
 
@@ -39,8 +40,10 @@ public final class BeanUtils {
                 for (Method method : methods) {
                     if (method.getName().equals("set" + name)) {
                         String type = method.getGenericParameterTypes()[0].toString();
-
                         switch (type) {
+                            case "class java.lang.Double":
+                                method.invoke(bean, Double.parseDouble(value));
+                                break;
                             case "class java.lang.String":
                                 method.invoke(bean, value);
                                 break;
@@ -61,9 +64,9 @@ public final class BeanUtils {
             }
 
             return bean;
-        } catch (InstantiationException | IllegalAccessException | InvocationTargetException | ParseException e) {
-            e.printStackTrace();
+        } catch (InstantiationException | NoSuchMethodException | IllegalAccessException | InvocationTargetException | ParseException e) {
 
+            e.printStackTrace();
             return null;
         }
     }
