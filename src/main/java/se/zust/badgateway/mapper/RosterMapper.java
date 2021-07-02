@@ -15,4 +15,6 @@ public interface RosterMapper {
     void deleteRosterById(String id);
 
     void updateRoster(RosterPO rosterPO);
+
+    List<RosterPO> getRosterList(String positionName);
 }

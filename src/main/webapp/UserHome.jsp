@@ -29,7 +29,7 @@
     #container {width:100%; height: 90%; }
 
   </style>
-  <script src="https://webapi.amap.com/maps?v=2.0&key=86b89ad4e1f9cdd0d722816d4d3ce8ca" type="text/javascript"></script>
+  <script src="https://webapi.amap.com/maps?v=2.0&key=86b89ad4e1f9cdd0d722816d4d3ce8ca&plugin=AMap.ToolBar,AMap.Driving" type="text/javascript"></script>
 </head>
 <meta name="viewport" content="initial-scale=1.0, user-scalable=no"/>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
@@ -79,12 +79,12 @@
     center: [120.032, 30.225],//中心点坐标
     viewMode:'3D'//使用3D视图
   });
-
-  AMap.plugin('AMap.Driving',function(){//异步加载插件
-    var driving = new AMap.Driving();//驾车路线规划
-    driving.search(/*参数*/)
-  });
-
+  var toolbar = new AMap.ToolBar();
+  map.plugin(toolbar);
+  var driving = new AMap.Driving();
+  driving.search(/*参数*/)
+</script>
+<script>
 
   var temp = new AMap.Marker({
     position: new AMap.LngLat(111,20), // 经纬度对象，也可以是经纬度构成的一维数组[116.39, 39.9]
@@ -95,58 +95,67 @@
 
 
   var temp1 = new AMap.Marker({
-    position: new AMap.LngLat('${item.lngX}','${item.latY}'), // 经纬度对象，也可以是经纬度构成的一维数组[116.39, 39.9]
+    position: new AMap.LngLat('${item.lngX}','${item.latY}'),
     title: '${item.positionName}',
     map: map,
     clickable: true
   })
-  map.add(temp1);
   temp1.setLabel({
-
-    content: "<div class='info'>${item.positionName}</div>", //设置文本标注内容
+    content: "${item.positionName}",
     direction: 'top' //设置文本标注方位
   });
+  temp1.on('dblclick',function(e){
+    alert(e.target.getLabel().content);
+    var msg = "您确定要退出当前账号吗？";
+    if (confirm(msg)==true){
+      setform(e.target.getLabel().content);
+    }else{
+      return false;
+    }
+  })
+
+
       </c:forEach>
+
+function setform(name){
+  window.location.href="${pageContext.request.contextPath}/station.do?name="+name;
+}
 
   AMap.plugin('AMap.Driving', function() {
     var driving = new AMap.Driving({
-      // 驾车路线规划策略，AMap.DrivingPolicy.LEAST_TIME是最快捷模式
       policy: AMap.DrivingPolicy.LEAST_TIME
     })
 
-    var startLngLat = [120.026, 30.215042]
-    var endLngLat = [120.0733281, 30.243719]
+    var startLngLat = [116.379028, 39.865042]
+    var endLngLat = [116.427281, 39.903719]
 
     driving.search(startLngLat, endLngLat, function (status, result) {
-      // 未出错时，result即是对应的路线规划方案
     })
   })
 
 
 
-  // var infoWindow = new AMap.InfoWindow({ //创建信息窗体
-  //   isCustom: true,  //使用自定义窗体
-  //   content:'<div>信息窗体</div>', //信息窗体的内容可以是任意html片段
+  // var infoWindow = new AMap.InfoWindow({
+  //   isCustom: true,
+  //   content:'<div>信息窗体</div>',
   //   offset: new AMap.Pixel(16, -45)
   // });
   // var onMarkerClick  =  function(e) {
-  //   infoWindow.open(map, e.target.getPosition());//打开信息窗体
-  //   //e.target就是被点击的Marker
+  //   infoWindow.open(map, e.target.getPosition());
+
   // }
   // var marker = new AMap.Marker({
   //   position: [116.481181, 39.989792]
   // })
   // map.add(marker);
-  // marker.on('click',onMarkerClick);//绑定click事件
+  // marker.on('click',onMarkerClick);
 
 
-  // var map = new BMap.Map("container");  // 创建地图实例
+  // var map = new BMap.Map("container");
   // var point = new BMap.Point(120.032, 30.225);
-  // // 创建点坐标
-
+  //
   // map.enableScrollWheelZoom(true);
-  // // 初始化地图，设置中心点坐标和地图级别
-  // var marker = new BMapGL.Marker(point);        // 创建标注
+  // var marker = new BMapGL.Marker(point);
   // map.centerAndZoom(point, 18);
   // map.addOverlay(marker);
   //
@@ -170,8 +179,8 @@
   //
   // var txtMenuItem = [
   //   {
-  //     text:'放大',                             // 定义菜单项的显示文本
-  //     callback: function () {                 // 定义菜单项点击触发的回调函数
+  //     text:'放大',
+  //     callback: function () {
   //       map.zoomIn();
   //     }
   //   },
@@ -183,21 +192,19 @@
   //   }
   // ];
   // for(var i = 0; i < txtMenuItem.length; i++){
-  //   menu.addItem(new BMapGL.MenuItem(               // 定义菜单项实例
-  //     txtMenuItem[i].text,                        // 传入菜单项的显示文本
-  //     txtMenuItem[i].callback,                    // 传入菜单项的回调函数
+  //   menu.addItem(new BMapGL.MenuItem(
+  //     txtMenuItem[i].text,
+  //     txtMenuItem[i].callback,
   //     {
-  //       width: 300,                             // 指定菜单项的宽度
-  //       id: 'menu' + i                          // 指定菜单项dom的id
+  //       width: 300,
+  //       id: 'menu' + i
   //     }
-  //   ));
-  //
-  // }
-  // map.addContextMenu(menu);
+
 
 </script>
-<form action="${pageContext.request.contextPath}/station.do" method="get">
-  <input type="submit" value="提交">
+<form id="sss" action="${pageContext.request.contextPath}/station.do" method="get">
+  <input type="submit"  id="Choosestation" value="提交">
 </form>
 </body>
 </html>
+
