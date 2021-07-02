@@ -12,6 +12,9 @@ public interface RosterMapper {
     @Select("select * from roster where id = #{id}")
     RosterDO getRosterById(String id);
 
+    @Select("select * from roster where start = #{start}")
+    List<RosterDO> RosterOfAdder(String start);
+
     @Select("select * from roster")
     List<RosterDO> listRoster();
 

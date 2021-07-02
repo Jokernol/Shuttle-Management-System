@@ -13,10 +13,6 @@ import java.util.List;
  */
 public class StationService {
     public boolean addStation(StationDO stationPo) {
-        System.out.print("sssss" + ObjectUtils.isAnyFiledNull(stationPo));
-        if (!ObjectUtils.isAnyFiledNull(stationPo)) {
-            return false;
-        }
         SqlSession sqlSession = MybatisUtils.getSqlSession();
         StationMapper mapper = sqlSession.getMapper(StationMapper.class);
         int i = mapper.addStation(stationPo);
@@ -27,11 +23,9 @@ public class StationService {
 
     public List<StationDO> allStation() {
         SqlSession sqlSession = MybatisUtils.getSqlSession();
-
         StationMapper mapper = sqlSession.getMapper(StationMapper.class);
         List<StationDO> S = mapper.listStastion();
         sqlSession.commit();
-
         sqlSession.close();
         return S;
     }

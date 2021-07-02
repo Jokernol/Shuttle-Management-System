@@ -10,7 +10,7 @@ import java.util.List;
  * @author 王怀瑾
  */
 public interface StationMapper {
-    @Insert("insert station values (#{lngX}, #{latY}, #{position})")
+    @Insert("insert station values (#{x}, #{y}, #{position})")
     int addStation(StationDO stationDO);
 
 

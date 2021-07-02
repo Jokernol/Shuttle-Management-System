@@ -32,9 +32,11 @@ public class StationServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        System.out.println(req.getParameter("x"));
         StationDO stationPo = BeanUtils.Request2Bean(req, StationDO.class);
-        StationService stationService1 = new StationService();
-        boolean i = stationService1.addStation(stationPo);
+        StationService stationService= new StationService();
+        System.out.println("ssssss"+stationPo.toString());
+        boolean i = stationService.addStation(stationPo);
         req.getRequestDispatcher("addSation.jsp").forward(req,resp);
     }
 

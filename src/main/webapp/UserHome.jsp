@@ -91,8 +91,9 @@
   map.add(temp);
   var markers = [];
       <c:forEach items="${applicationScope.stationList}" var = "item" varStatus="station" >
-  var temp1 = new AMap.Marker({
-    position: new AMap.LngLat('${item.lngX}','${item.latY}'), // 经纬度对象，也可以是经纬度构成的一维数组[116.39, 39.9]
+    alert(${item.x})
+    var temp1 = new AMap.Marker({
+    position: new AMap.LngLat('${item.x}','${item.y}'), // 经纬度对象，也可以是经纬度构成的一维数组[116.39, 39.9]
     title: '${item.position}',
     map: map,
     clickable: true
