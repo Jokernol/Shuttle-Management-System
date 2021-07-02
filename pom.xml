@@ -98,7 +98,7 @@
         <configuration>
           <scanIntervalSeconds>5</scanIntervalSeconds>
           <webApp>
-            <contextPath></contextPath>
+            <contextPath/>
           </webApp>
           <httpConnector>
             <port>8084</port>

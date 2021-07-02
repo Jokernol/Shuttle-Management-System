@@ -15,14 +15,12 @@ public interface RosterMapper {
     @Select("select * from roster")
     List<RosterDO> listRoster();
 
-    @Insert("insert roster values (#{id}, #{driver}, #{group}, #{departureTime})")
+    @Insert("insert roster values (#{id}, #{busId}, #{driverId}, #{origin}, #{destination}, #{departureTime}, #{rest})")
     void insertRoster(RosterDO rosterDO);
 
     @Delete("delete from roster where id = #{id}")
     void deleteRosterById(String id);
 
-    @Update("update roster" +
-        "set driver = #{driver}, group = #{group}, departure_time = #{departureTime}" +
-        "where id = #{id}")
+    @Update("update roster set bus_id = #{busId}, driver_id = #{driverId}, origin = #{origin}, destination = #{destination}, departure_time = #{departureTime}, rest = #{rest} where id = #{id}")
     void updateRoster(RosterDO rosterDO);
 }

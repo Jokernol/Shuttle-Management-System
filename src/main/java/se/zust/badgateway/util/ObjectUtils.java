@@ -9,7 +9,7 @@ import java.lang.reflect.Field;
  */
 public class ObjectUtils {
     public static boolean isAnyFiledNull(Object object) {
-        Boolean flag = false;
+        boolean flag = false;
 
         try {
             for (Field field : object.getClass().getDeclaredFields()) {

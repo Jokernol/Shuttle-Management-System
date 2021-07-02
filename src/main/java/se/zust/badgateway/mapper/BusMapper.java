@@ -16,17 +16,13 @@ public interface BusMapper {
     List<BusDO> listBus();
 
     @Insert("insert bus " +
-        "values (#{id}, #{seat}, #{brand}, #{insuranceDate}, #{drivingLicense}, #{appointments}, #{registerTime})"
+        "values (#{id}, #{seat}, #{brand}, #{insuranceDate}, #{drivingLicense}, #{registerTime})"
     )
     void insertBus(BusDO busDO);
 
     @Delete("delete from bus where id = #{id}")
     void deleteBusById(String id);
 
-    @Update("update bus " +
-        "set seat = #{seat}, brand = #{brand}, insurance_date = #{insuranceDate}, " +
-        "driving_license = #{drivingLicense}, appointments = #{appointments}, register_time = #{registerTime}" +
-        "where id = #{id}"
-    )
+    @Update("update bus set seat = #{seat}, brand = #{brand}, insurance_date = #{insuranceDate}, driving_license = #{drivingLicense}, register_time = #{registerTime} where id = #{id}")
     void updateBus(BusDO busDO);
 }

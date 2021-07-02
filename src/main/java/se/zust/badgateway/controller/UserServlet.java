@@ -1,43 +1,76 @@
 package se.zust.badgateway.controller;
 
-import se.zust.badgateway.pojo.DTO.RegisterDTO;
-import se.zust.badgateway.pojo.DTO.LoginDTO;
-import se.zust.badgateway.service.Impl.UserServiceImpl;
+import se.zust.badgateway.controller.base.BaseServlet;
+import se.zust.badgateway.pojo.DO.UserDO;
+import se.zust.badgateway.pojo.DTO.UserDTO;
+import se.zust.badgateway.service.UserService;
 import se.zust.badgateway.util.BeanUtils;
 
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.List;
 
 
 /**
  * @author 韩成峰
  */
-public class UserServlet extends HttpServlet {
+@WebServlet("users/*")
+public class UserServlet extends BaseServlet {
     /**
-     * 查询用户
+     * 添加用户
      */
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+    protected void post(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+        UserDTO userDTO = BeanUtils.Request2Bean(req, UserDTO.class);
 
+        if (UserService.getInstance().register(userDTO)) {
+            req.setAttribute("info", "success");
+        } else {
+            req.setAttribute("info", "error");
+        }
+
+        req.getRequestDispatcher("/index.jsp").forward(req, resp);
+    }
+
+    /**
+     * 删除用户
+     */
+    protected void delete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String id = req.getParameter("id");
+
+        UserService.getInstance().deleteUser(id);
+
+        req.setAttribute("info", "success");
+
+        req.getRequestDispatcher("/index.jsp").forward(req, resp);
     }
 
     /**
      * 修改用户
      */
-    @Override
-    protected void doPut(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+    protected void put(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        UserDO userDO = BeanUtils.Request2Bean(req, UserDO.class);
+
+        if (UserService.getInstance().updateUser(userDO)) {
+            req.setAttribute("info", "success");
+        } else {
+            req.setAttribute("info", "error");
+        }
+
+        req.getRequestDispatcher("/index.jsp").forward(req, resp);
     }
 
     /**
-     * 添加用户
+     * 查询用户
      */
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
-        RegisterDTO registerDTO = BeanUtils.Request2Bean(req,RegisterDTO.class);
+    protected void get(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        List<UserDO> userDOList = UserService.getInstance().listUser();
+
+        req.setAttribute("userDOList", userDOList);
+
+        req.getRequestDispatcher("/index.jsp").forward(req, resp);
     }
 }
 

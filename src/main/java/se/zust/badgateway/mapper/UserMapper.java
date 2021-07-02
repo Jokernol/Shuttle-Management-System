@@ -27,7 +27,7 @@ public interface UserMapper {
      * @param username username
      * @return UserPO
      */
-    @Select("select * from user where user_name = #{userName}")
+    @Select("select * from user where username = #{username}")
     UserDO getUserByUserName(String username);
 
     /**
@@ -43,7 +43,7 @@ public interface UserMapper {
      *
      * @param userDO user
      */
-    @Insert("insert user values (#{id}, #{name}, #{password}, #{identity}, #{telephone})")
+    @Insert("insert user values (#{id}, #{username}, #{password}, #{identity}, #{telephone}, #{type})")
     void insertUser(UserDO userDO);
 
     /**
@@ -59,9 +59,6 @@ public interface UserMapper {
      *
      * @param userDO user
      */
-    @Update("update user " +
-        "set name = #{name}, password = #{password}, identity = #{identity}, telephone = #{telephone} " +
-        "where id = #{id}"
-    )
+    @Update("update user set username = #{username}, password = #{password}, identity = #{identity}, telephone = #{telephone}, type = #{type} where id = #{id}")
     void updateUser(UserDO userDO);
 }

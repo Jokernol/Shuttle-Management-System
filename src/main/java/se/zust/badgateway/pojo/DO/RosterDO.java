@@ -14,8 +14,10 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class RosterDO {
     private String id;
-    private String group;
     private String busId;
     private String driverId;
+    private String origin;
+    private String destination;
     private LocalDateTime departureTime;
+    private Integer rest;
 }

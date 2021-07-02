@@ -1,38 +1,74 @@
 package se.zust.badgateway.controller;
 
+import se.zust.badgateway.controller.base.BaseServlet;
 import se.zust.badgateway.pojo.DO.BusDO;
+import se.zust.badgateway.pojo.DTO.BusDTO;
+import se.zust.badgateway.service.BusService;
 import se.zust.badgateway.util.BeanUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 
 /**
  * @author 王怀瑾
  */
-@WebServlet("Bus")
-public class BusServlet extends HttpServlet {
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doGet(req, resp);
+@WebServlet("buses/*")
+public class BusServlet extends BaseServlet {
+    /**
+     * 新增车辆
+     */
+    protected void post(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        BusDTO busDTO = BeanUtils.Request2Bean(req, BusDTO.class);
+
+        if (BusService.getInstance().insertBus(busDTO)) {
+            req.setAttribute("info", "success");
+        } else {
+            req.setAttribute("info", "error");
+        }
+
+        req.getRequestDispatcher("/index.jsp").forward(req, resp);
     }
 
-    @Override
-    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPut(req, resp);
+    /**
+     * 删除车辆
+     */
+    protected void delete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String id = req.getParameter("id");
+
+        BusService.getInstance().deleteBus(id);
+
+        req.setAttribute("info", "success");
+
+        req.getRequestDispatcher("/index.jsp").forward(req, resp);
     }
 
-    @Override
-    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doDelete(req, resp);
+    /**
+     * 修改车辆
+     */
+    protected void put(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        BusDO busDO = BeanUtils.Request2Bean(req, BusDO.class);
+
+        if (BusService.getInstance().updateBus(busDO)) {
+            req.setAttribute("info", "success");
+        } else {
+            req.setAttribute("info", "error");
+        }
+
+        req.getRequestDispatcher("/index.jsp").forward(req, resp);
     }
 
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        BusDO bus = BeanUtils.Request2Bean(req, BusDO.class);
-    }
+    /**
+     * 查询车辆
+     */
+    protected void get(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        List<BusDO> busDOList = BusService.getInstance().listBus();
 
+        req.setAttribute("busDOList", busDOList);
+
+        req.getRequestDispatcher("/index.jsp").forward(req, resp);
+    }
 }

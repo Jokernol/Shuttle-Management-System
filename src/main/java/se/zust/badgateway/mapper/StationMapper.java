@@ -11,9 +11,8 @@ import java.util.List;
  */
 public interface StationMapper {
     @Insert("insert station values (#{lngX}, #{latY}, #{position})")
-    int addStation(StationDO stationDO);
-
+    int insertStation(StationDO stationDO);
 
     @Select("select * from station")
-    List<StationDO> listStastion();
+    List<StationDO> listStation();
 }

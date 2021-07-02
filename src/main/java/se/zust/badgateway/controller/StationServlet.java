@@ -1,6 +1,7 @@
 package se.zust.badgateway.controller;
 
-import se.zust.badgateway.service.Impl.StationService1;
+import se.zust.badgateway.controller.base.BaseServlet;
+import se.zust.badgateway.service.StationService;
 import se.zust.badgateway.pojo.DO.StationDO;
 import se.zust.badgateway.util.BeanUtils;
 
@@ -16,35 +17,30 @@ import java.util.List;
 /**
  * @author 王怀瑾
  */
-@WebServlet("/station.do")
-public class StationServlet extends HttpServlet {
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-        String url = req.getServletPath();
-        String eUrl = url.substring(url.lastIndexOf("/")+1);
-        StationService1 stationService1 = new StationService1();
-        List<StationDO> stationList = stationService1.allStation();
-        HttpSession session = req.getSession();
-        session.setAttribute("stationList",stationList);
-        req.getRequestDispatcher("/UserHome.jsp").forward(req,resp);
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+@WebServlet("stations/*")
+public class StationServlet extends BaseServlet {
+    protected void post(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         StationDO stationPo = BeanUtils.Request2Bean(req, StationDO.class);
-        StationService1 stationService1 = new StationService1();
-        boolean i = stationService1.addStation(stationPo);
+        StationService stationService = new StationService();
+        boolean i = stationService.addStation(stationPo);
         req.getRequestDispatcher("addSation.jsp").forward(req,resp);
     }
 
-    @Override
-    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void delete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    }
+
+    protected void put(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         super.doPut(req, resp);
     }
 
-    @Override
-    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doDelete(req, resp);
+    protected void get(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        String url = req.getServletPath();
+        String eUrl = url.substring(url.lastIndexOf("/")+1);
+        StationService stationService = new StationService();
+        List<StationDO> stationList = stationService.allStation();
+        HttpSession session = req.getSession();
+        session.setAttribute("stationList",stationList);
+        req.getRequestDispatcher("/UserHome.jsp").forward(req,resp);
     }
 }
