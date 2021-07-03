@@ -3,7 +3,9 @@ package se.zust.badgateway.service;
 import org.apache.ibatis.session.SqlSession;
 import se.zust.badgateway.mapper.RosterMapper;
 import se.zust.badgateway.pojo.DO.RosterDO;
+import se.zust.badgateway.pojo.DTO.RosterDTO;
 import se.zust.badgateway.util.MybatisUtils;
+import se.zust.badgateway.util.ObjectUtils;
 
 import java.util.List;
 import java.util.UUID;
@@ -38,24 +40,47 @@ public class RosterService {
         return rosterList;
     }
 
-    public List<RosterDO> addRoster(RosterDO rosterDO){
+    public int addRoster(RosterDTO rosterDTO){
         String id = UUID.randomUUID().toString().replace("-","");
 
-        rosterDO.setBusId(id);
+        if (ObjectUtils.isAnyFiledNull(rosterDTO)) {
+            return 0;
+        }else {
+            SqlSession sqlSession = MybatisUtils.getSqlSession();
+            RosterMapper mapper = sqlSession.getMapper(RosterMapper.class);
 
+//            if (mapper.getRoster(rosterDTO.getBusId(),rosterDTO.getDriverId(),rosterDTO.getOrigin())!=null){
+//                return 1;
+//            }
+
+            RosterDO rosterDO = new RosterDO(
+                id,
+                rosterDTO.getBusId(),
+                rosterDTO.getDriverId(),
+                rosterDTO.getOrigin(),
+                rosterDTO.getDestination(),
+                rosterDTO.getDepartureTime(),
+                rosterDTO.getRest()
+            );
+            mapper.insertRoster(rosterDO);
+            sqlSession.commit();
+            sqlSession.close();
+        }
+        return 2;
+    }
+
+    public List<RosterDO> ListRoster(){
         SqlSession sqlSession = MybatisUtils.getSqlSession();
 
         RosterMapper mapper = sqlSession.getMapper(RosterMapper.class);
 
-        mapper.insertRoster(rosterDO);
-
-        List<RosterDO> rosterList = mapper.listRoster();
+        List<RosterDO> s =  mapper.listRoster();
 
         sqlSession.commit();
 
         sqlSession.close();
 
-        return rosterList;
+        return  s;
     }
 
     public List<RosterDO> deleteRoster(String id){

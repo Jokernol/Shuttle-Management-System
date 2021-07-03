@@ -1,4 +1,4 @@
-package se.zust.badgateway.pojo.DO;
+package se.zust.badgateway.pojo.DTO;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,8 +12,7 @@ import java.time.LocalDateTime;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class RosterDO {
-    private String id;
+public class RosterDTO {
     private String busId;
     private String driverId;
     private String origin;
