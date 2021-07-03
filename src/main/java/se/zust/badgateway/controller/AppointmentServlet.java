@@ -1,6 +1,7 @@
 package se.zust.badgateway.controller;
 
 import org.apache.ibatis.session.SqlSession;
+import se.zust.badgateway.controller.base.BaseServlet;
 import se.zust.badgateway.mapper.AppointmentMapper;
 
 import se.zust.badgateway.pojo.DO.AppointmentDO;
@@ -21,15 +22,13 @@ import java.io.IOException;
 /**
  * @author 王怀瑾
  */
-public class AppointmentServlet extends HttpServlet {
+public class AppointmentServlet extends BaseServlet {
     AppointmentService appointmentService = new AppointmentService();
 
     /**
-     *
      * 用户查看车站列表
      */
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void get(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String position = req.getParameter("position");
 
         updateAppointmentOfUser(req,resp);
@@ -40,8 +39,7 @@ public class AppointmentServlet extends HttpServlet {
     /**
      *用户添加排班
      */
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void post(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String info;
         String rosterId = req.getParameter("rosterId");
 
@@ -93,7 +91,6 @@ public class AppointmentServlet extends HttpServlet {
     }
 
     /**
-     *
      * 更新预约列表.每次对预约表更新都使用
      */
     protected void updateAppointment(HttpServletRequest req,HttpServletResponse resp){
@@ -104,7 +101,6 @@ public class AppointmentServlet extends HttpServlet {
         ServletContext servletContext = req.getServletContext();
 
         servletContext.setAttribute("allAppointment", mapper1.allAppointment());
-
     }
 
     protected void updateAppointmentOfUser(HttpServletRequest req,HttpServletResponse resp){

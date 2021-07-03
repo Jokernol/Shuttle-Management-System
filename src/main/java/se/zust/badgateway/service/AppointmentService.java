@@ -19,16 +19,20 @@ public class AppointmentService {
      */
     public List<RosterDO> getRoster(String position){
         SqlSession sqlSession = MybatisUtils.getSqlSession();
+
         AppointmentMapper mapper = sqlSession.getMapper(AppointmentMapper.class);
+
         List<RosterDO> rosterList = mapper.RosterOfAdder(position);
+
         sqlSession.commit();
+
         sqlSession.close();
+
         return rosterList;
     }
 
     /**
-     *  用户预约班次
-     *  并查重
+     *  用户预约班次并查重
      */
     public int addAppointment(UserDO userDO,String rosterId){
         SqlSession sqlSession = MybatisUtils.getSqlSession();
@@ -61,7 +65,6 @@ public class AppointmentService {
 
     /**
      *删除预约
-     *
      */
     public void deleteAppointment(AppointmentDO appointmentDO){
         SqlSession sqlSession = MybatisUtils.getSqlSession();
@@ -76,7 +79,6 @@ public class AppointmentService {
     }
 
     /**
-     *
      * 返回所有的用户的预约
      */
     public List<AppointmentDO> appointmentOfUser(String userId){
