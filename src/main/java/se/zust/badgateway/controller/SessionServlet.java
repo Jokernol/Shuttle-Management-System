@@ -3,6 +3,8 @@ package se.zust.badgateway.controller;
 import se.zust.badgateway.controller.base.BaseServlet;
 import se.zust.badgateway.pojo.DO.UserDO;
 import se.zust.badgateway.pojo.DTO.LoginDTO;
+import se.zust.badgateway.service.AppointmentService;
+import se.zust.badgateway.service.RosterService;
 import se.zust.badgateway.service.SessionService;
 import se.zust.badgateway.service.UserService;
 import se.zust.badgateway.util.BeanUtils;
@@ -31,7 +33,6 @@ public class SessionServlet extends BaseServlet {
             UserDO userDO = SessionService.getInstance().getUserByUserName(loginDTO.getUsername());
 
             int result = SessionService.getInstance().login(loginDTO);
-            req.setAttribute("info", "error");
 
             switch (result) {
                 case 0:
@@ -40,6 +41,7 @@ public class SessionServlet extends BaseServlet {
                     break;
                 case 1:
                     httpSession.setAttribute("userDO", userDO);
+                    httpSession.setAttribute("appointmentOfUser", RosterService.getInstance().getRosterOfUser(userDO.getId()));
                     req.getRequestDispatcher("/userHome/userHome.jsp").forward(req, resp);
                     break;
                 default:
@@ -59,6 +61,6 @@ public class SessionServlet extends BaseServlet {
         HttpSession httpSession = req.getSession();
         httpSession.invalidate();
 
-        req.getRequestDispatcher("/index.jsp").forward(req, resp);
+        resp.sendRedirect("/login.jsp");
     }
 }

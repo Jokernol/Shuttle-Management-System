@@ -92,6 +92,7 @@ public class AppointmentService {
         mapper.deleteRosterById(appointmentDO.getUserId(),appointmentDO.getRosterId());
 
         RosterMapper mapper1 = sqlSession.getMapper(RosterMapper.class);
+        System.out.println(appointmentDO);
         RosterDO rosterDO = mapper1.getRosterById(appointmentDO.getRosterId());
         int i = rosterDO.getRest();
 

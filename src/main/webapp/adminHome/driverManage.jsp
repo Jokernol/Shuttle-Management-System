@@ -36,6 +36,8 @@
       <ul class="nav navbar-nav navbar-right">
         <li><a href="#">欢迎您 ,</a></li>
         <li><a href="#">${sessionScope.userDO.username}</a></li>
+        <li><a href="/sessions/delete">注销</a></li>
+
       </ul>
     </div>
   </div>
@@ -48,6 +50,8 @@
         <li><a href="/adminHome/busManage.jsp">车辆信息汇总</a></li>
         <li><a href="/adminHome/rosterManage.jsp">排班信息汇总</a></li>
         <li class="active"><a href="#">驾驶员信息汇总</a></li>
+        <li><a href="/adminHome/addStation.jsp">添加地图</a></li>
+
       </ul>
     </div>
 
@@ -69,27 +73,28 @@
                 <th>电话&nbsp;&nbsp;</th>
                 <th>驾驶经验&nbsp;&nbsp;</th>
               </tr>
-              <c:forEach items="${driverDOList}" var="Driver">
+              <c:forEach items="${applicationScope.driverDOList}" var="DriverDO">
               <tr>
-                <td>${Driver.id}&nbsp;&nbsp;</td>
-                <td>${Driver.age}&nbsp;&nbsp;</td>
-                <td>${Driver.name}&nbsp;&nbsp;</td>
-                <td>${Driver.address}&nbsp;&nbsp;</td>
-                <td>${Driver.telephone}&nbsp;&nbsp;</td>
-                <td>${Driver.drivingExperience}&nbsp;&nbsp;</td>
-                <td><a href="${pageContext.request.contextPath}/drivers/delete?id=${Driver.id}">删除&nbsp;&nbsp;</a></td>
-                <td><a name="update" id="update">更新</a>&nbsp;&nbsp;&nbsp;&nbsp;</td>
-                <div id="update-form" style="display: none">
-                  <form action="${pageContext.request.contextPath}/drivers/put">
-                    <input type="text" name="id" value="${Driver.id}" style="display: none">
-                    年龄：<input type="text" name="age" size="1" value="${Driver.age}">&nbsp;
-                    姓名:<input type="text" name="name" size="1" value="${Driver.name}" >&nbsp;
-                    家庭住址:<input type="text" name="address" size="1" value="${Driver.address}">&nbsp;
-                    电话<input type="text" name="telephone" size="1" value="${Driver.telephone}">&nbsp;
-                    驾驶经验：<input type="text" name="drivingExperience" size="1" value="${Driver.drivingExperience}">&nbsp;
-                    <input type="submit" value="更新">
+                <td>${DriverDO.id}&nbsp;&nbsp;</td>
+                <td>${DriverDO.age}&nbsp;&nbsp;</td>
+                <td>${DriverDO.name}&nbsp;&nbsp;</td>
+                <td>${DriverDO.address}&nbsp;&nbsp;</td>
+                <td>${DriverDO.telephone}&nbsp;&nbsp;</td>
+                <td>${DriverDO.drivingExperience}&nbsp;&nbsp;</td>
+                <td><a href="${pageContext.request.contextPath}/drivers/delete?id=${DriverDO.id}">删除&nbsp;&nbsp;</a></td>
+                <td>
+                      <a name="update" id="update" onclick="$(this).next().toggle()">更新</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                      <form action="${pageContext.request.contextPath}/drivers/put" style="display: none">
+                      <input type="text" name="id" value="${DriverDO.id}" style="display: none">
+                      年龄：<input type="text" name="age" size="1" value="${DriverDO.age}">&nbsp;
+                      姓名:<input type="text" name="name" size="1" value="${DriverDO.name}" >&nbsp;
+                      家庭住址:<input type="text" name="address" size="1" value="${DriverDO.address}">&nbsp;
+                      电话<input type="text" name="telephone" size="1" value="${DriverDO.telephone}">&nbsp;
+                      驾驶经验：<input type="text" name="drivingExperience" size="1" value="${DriverDO.drivingExperience}">&nbsp;
+                      <input type="submit" value="更新">
                   </form>
-                </div>
+                </td>
+
               </tr>
               </c:forEach>
             </table>
@@ -135,21 +140,6 @@
     }
   };
 
-  document.getElementById("update").onclick = function (){
-
-    //使用if判断，判断button按钮的value属性
-    if (b===0) {
-      // 如果是隐藏，那么点击后通过div盒子的id修改css样式，将display属性值改为none
-      document.getElementById("update-form").style.display = "block";
-      //this关键字获取的是当前对象  通过this关键字来修改button的value值
-      b=1;
-    }else if (b===1) {
-      // 如果是显示，那么点击后通过div盒子的id修改css样式，将display属性值改为block
-      document.getElementById("update-form").style.display = "none";
-      //this关键字获取的是当前对象  通过this关键字来修改button的value值
-      b=0
-    }
-  };
 
   window.onload=function (){
     var str="${info}";

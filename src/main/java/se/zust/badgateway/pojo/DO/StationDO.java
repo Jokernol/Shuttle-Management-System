@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class StationDO {
-    private Double lngX;
-    private Double latY;
+    private Double x;
+    private Double y;
     private String position;
 }

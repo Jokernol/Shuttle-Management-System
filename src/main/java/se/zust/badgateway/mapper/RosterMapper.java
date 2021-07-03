@@ -33,4 +33,8 @@ public interface RosterMapper {
 
     @Delete("delete from bus where userId = #{userId}")
     void deleteBusById(String id);
+
+
+    @Select("select * from roster where id in ( select roster_id from appointment where user_id= #{userId})")
+    List<RosterDO> getRosterOfUser(String userId);
 }

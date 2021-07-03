@@ -58,7 +58,8 @@ public class BusServlet extends BaseServlet {
      */
     protected void put(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         BusDO busDO = BeanUtils.Request2Bean(req, BusDO.class);
-
+        System.out.println(busDO);
+/*********************/
         if (BusService.getInstance().updateBus(busDO)) {
             req.setAttribute("info", "success");
             ServletContext servletContext = req.getServletContext();

@@ -5,6 +5,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.Enumeration;
 
 /**
@@ -30,6 +31,7 @@ public final class BeanUtils {
                 for (Method method : methods) {
                     if (method.getName().equals("set" + name)) {
                         String type = method.getGenericParameterTypes()[0].toString();
+                        System.out.println(type);
                         switch (type) {
                             case "class java.lang.Integer":
                                 method.invoke(bean, Integer.parseInt(value));
@@ -46,6 +48,9 @@ public final class BeanUtils {
                             case "class java.util.Date":
                                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                                 method.invoke(bean, sdf.parse(value));
+                                break;
+                            case "class java.time.LocalDateTime":
+                                method.invoke(bean, LocalDateTime.parse(value));
                                 break;
                             default:
                                 throw new IllegalStateException("Unexpected value: " + type);

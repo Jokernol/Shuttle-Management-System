@@ -3,6 +3,7 @@ package se.zust.badgateway.controller;
 import se.zust.badgateway.controller.base.BaseServlet;
 import se.zust.badgateway.pojo.DO.RosterDO;
 import se.zust.badgateway.pojo.DTO.RosterDTO;
+import se.zust.badgateway.service.DriverService;
 import se.zust.badgateway.service.RosterService;
 import se.zust.badgateway.util.BeanUtils;
 
@@ -48,20 +49,34 @@ public class RosterServlet extends BaseServlet {
 
         ServletContext servletContext = req.getServletContext();
 
-        servletContext.setAttribute("rosterList", rosterList);
-
-//        req.getRequestDispatcher("adminHome.jsp").forward(req,resp);
+        servletContext.setAttribute("rosterDOList", rosterList);
+        req.getRequestDispatcher("/adminHome/rosterManage.jsp").forward(req,resp);
     }
 
     protected void delete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String id = req.getParameter("id");
+
         System.out.println(id);
+
         List<RosterDO> rosterList = RosterService.getInstance().deleteRoster(id);
 
         ServletContext servletContext = req.getServletContext();
 
-        servletContext.setAttribute("rosterList", rosterList);
+        servletContext.setAttribute("rosterDOList", rosterList);
 
-//        req.getRequestDispatcher("adminHome.jsp").forward(req,resp);
+        req.getRequestDispatcher("/adminHome/rosterManage.jsp").forward(req,resp);
+    }
+
+    protected void put(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        RosterDO rosterDO = BeanUtils.Request2Bean(req,RosterDO.class);
+        if(RosterService.getInstance().updateRoster(rosterDO)) {
+            ServletContext servletContext = req.getServletContext();
+            servletContext.setAttribute("rosterDOList",RosterService.getInstance().listRoster());
+            req.setAttribute("info", "success");
+        } else {
+            req.setAttribute("info", "error");
+        }
+
+        req.getRequestDispatcher("/adminHome/rosterManage.jsp").forward(req, resp);
     }
 }

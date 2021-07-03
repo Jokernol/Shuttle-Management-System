@@ -37,6 +37,8 @@
       <ul class="nav navbar-nav navbar-right">
         <li><a href="#">欢迎您 ,</a></li>
         <li><a href="#">${sessionScope.userDO.username}</a></li>
+        <li><a href="/sessions/delete" >注销</a></li>
+
       </ul>
     </div>
   </div>
@@ -49,6 +51,8 @@
         <li><a href="/adminHome/busManage.jsp">车辆信息汇总</a></li>
         <li class="active"><a href="#">排班信息汇总</a></li>
         <li><a href="/adminHome/driverManage.jsp">驾驶员信息汇总</a></li>
+        <li><a href="/adminHome/addStation.jsp">添加地图</a></li>
+
       </ul>
     </div>
 
@@ -71,42 +75,44 @@
                 <th>出发时间&nbsp;&nbsp;</th>
                 <th>剩余座位</th>
               </tr>
-              <c:forEach items="${rosterDOList}" var="Roster">
+              <c:forEach items="${rosterDOList}" var="RosterDO">
               <tr>
-                <td>${Roster.id}</td>
-                <td>${Roster.busId}</td>
-                <td>${Roster.driverId}</td>
-                <td>${Roster.origin}</td>
-                <td>${Roster.destination}</td>
-                <td>${Roster.departureTime}</td>
-                <td>${Roster.rest}</td>
-                <td><a href="">删除&nbsp;&nbsp;</a></td>
-                <td><a name="update" id="update">更新</a>&nbsp;&nbsp;&nbsp;&nbsp;</td>
-                <div id="update-form" style="display: none"><form action="" method="post" >
-                  <input type="text" name="id" value="${Roster.id}" style="display:none;">
-                  车序号：<input type="text" name="drivingLicense" size="1" value="${Roster.busId}">
-                  驾驶员编号:<input type="text" name="driverId" size="1" value="${Roster.driverId}">&nbsp;&nbsp;
-                  出发地：<input type="text" name="orgin" size="1" value="${Roster.origin}">&nbsp;
-                  目的地：<input type="text" name="destination" size="1" value="${Roster.destination}">&nbsp;&nbsp;
-                  出发时间:<input type="text" name="departureTime" size="1" value="${Roster.departureTime}">
-                  剩余:<input type="text" name="rest" size="1" value="${Roster.rest}">&nbsp;
-                  <input type="submit" value="更新">
-                </form>
-                </div>
+                <td>${RosterDO.id}</td>
+                <td>${RosterDO.busId}</td>
+                <td>${RosterDO.driverId}</td>
+                <td>${RosterDO.origin}</td>
+                <td>${RosterDO.destination}</td>
+                <td>${RosterDO.departureTime}</td>
+                <td>${RosterDO.rest}</td>
+                <td><a href="${pageContext.request.contextPath}/rosters/delete?id=${RosterDO.id}">删除&nbsp;&nbsp;</a></td>
+                <td>
+                    <a name="update" id="update" onclick="$(this).next().toggle()">更新</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <form action="${pageContext.request.contextPath}/rosters/put" style="display: none">
+                            <input type="text" name="id" value="${RosterDO.id}" style="display:none;">
+                      车序号：<input type="text" name="busId" size="1" value="${RosterDO.busId}">
+                      驾驶员编号:<input type="text" name="driverId" size="1" value="${RosterDO.driverId}">&nbsp;&nbsp;
+                      出发地：<input type="text" name="origin" size="1" value="${RosterDO.origin}">&nbsp;
+                      目的地：<input type="text" name="destination" size="1" value="${RosterDO.destination}">&nbsp;&nbsp;
+                      出发时间:<input type="text" name="departureTime" size="1" value="${RosterDO.departureTime}">
+                      剩余:<input type="text" name="rest" size="1" value="${RosterDO.rest}">&nbsp;
+                           <input type="submit" value="更新">
+                    </form>
+                </td>
               </tr>
               </c:forEach>
             </table>
             <div>
-              <div class="addUser"><input type="button" id="addRoster" value="增加用户"></div>
+              <div class="addUser"><input type="button" id="addRoster" value="增加排班"></div>
               <div class="form" id="form" style="display: none;">
-                <form action="" method="put">
-                  车序号：<input type="text" name="drivingLicense" size="1">
+                <form action="/rosters/post">
+                  车序号：<input type="text" name="busId" size="1">
                   驾驶员编号:<input type="text" name="driverId" size="1" >&nbsp;&nbsp;
-                  出发地：<input type="text" name="orgin" size="1" >&nbsp;
+                  出发地：<input type="text" name="origin" size="1" >&nbsp;
                   目的地：<input type="text" name="destination" size="1" >&nbsp;&nbsp;
                   出发时间:<input type="text" name="departureTime" size="1" >
                   剩余:<input type="text" name="rest" size="1">&nbsp;
                   <br/>
+                  <input type="submit" value="增加">
                 </form>
               </div>
             </div>
@@ -139,20 +145,10 @@
       a=0
     }
   };
-
-  document.getElementById("update").onclick = function (){
-
-    //使用if判断，判断button按钮的value属性
-    if (b===0) {
-      // 如果是隐藏，那么点击后通过div盒子的id修改css样式，将display属性值改为none
-      document.getElementById("update-form").style.display = "block";
-      //this关键字获取的是当前对象  通过this关键字来修改button的value值
-      b=1;
-    }else if (b===1) {
-      // 如果是显示，那么点击后通过div盒子的id修改css样式，将display属性值改为block
-      document.getElementById("update-form").style.display = "none";
-      //this关键字获取的是当前对象  通过this关键字来修改button的value值
-      b=0
+  window.onload=function (){
+    var str="${info}";
+    if (str==="error"){
+      alert("操作失败，数据不能为空");
     }
   };
 

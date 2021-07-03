@@ -32,6 +32,7 @@ public class StationServlet extends BaseServlet {
 
         servletContext.setAttribute("stationList",StationService.getInstance().allStation() );
 
-        req.getRequestDispatcher("addSation.jsp").forward(req, resp);
+        req.getRequestDispatcher("/adminHome/adminHome.jsp").forward(req, resp);
+
     }
 }

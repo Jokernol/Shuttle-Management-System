@@ -1,5 +1,6 @@
 package se.zust.badgateway.controller;
 
+import com.sun.net.httpserver.HttpContext;
 import org.apache.ibatis.session.SqlSession;
 import se.zust.badgateway.controller.base.BaseServlet;
 import se.zust.badgateway.mapper.AppointmentMapper;
@@ -9,6 +10,7 @@ import se.zust.badgateway.pojo.DO.AppointmentDO;
 import se.zust.badgateway.pojo.DO.RosterDO;
 import se.zust.badgateway.pojo.DO.UserDO;
 import se.zust.badgateway.service.AppointmentService;
+import se.zust.badgateway.service.RosterService;
 import se.zust.badgateway.util.MybatisUtils;
 
 import javax.servlet.ServletContext;
@@ -31,17 +33,18 @@ public class AppointmentServlet extends BaseServlet {
      * 用户查看排班列表
      */
     protected void get(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String position = req.getParameter("position");
+        String position = req.getParameter("name");
 
+        System.out.println(position);
         List<RosterDO> rosterListOfAddress = AppointmentService.getInstance().getRoster(position);
 
         System.out.println(rosterListOfAddress);
 
         HttpSession session = req.getSession();
 
-        session.setAttribute("rosterListOfAddress",rosterListOfAddress);
+        session.setAttribute("rosterList",rosterListOfAddress);
 
-        req.getRequestDispatcher("userHome.jsp").forward(req,resp);
+//        req.getRequestDispatcher("userHome.jsp").forward(req,resp);
     }
 
     /**
@@ -49,13 +52,17 @@ public class AppointmentServlet extends BaseServlet {
      */
     protected void post(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String info;
+        System.out.println("ssss");
         String rosterId = req.getParameter("rosterId");
 
+        System.out.println(rosterId);
         HttpSession session = req.getSession();
 
-//        UserDO user =(UserDO) session.getAttribute("UserDO");
-        UserDO user = new UserDO();
-        user.setId("1");
+        ServletContext servletContext = req.getServletContext();
+
+        UserDO user =(UserDO) session.getAttribute("userDO");
+
+        System.out.println(user.toString());
         int i = AppointmentService.getInstance().addAppointment(user,rosterId);
 
         switch (i){
@@ -76,14 +83,11 @@ public class AppointmentServlet extends BaseServlet {
                 req.setAttribute("info",info);
                 break;
         }
+        servletContext.setAttribute("rosterDOList",RosterService.getInstance().listRoster());
 
-        System.out.println(info);
+        session.setAttribute("appointmentOfUser", RosterService.getInstance().getRosterOfUser(user.getId()));
 
-        List<AppointmentDO> appointmentList = AppointmentService.getInstance().appointmentOfUser(user.getId());
-
-        session.setAttribute("appointmentList",appointmentList);
-
-        req.getRequestDispatcher("/userHome.jsp").forward(req,resp);
+        req.getRequestDispatcher("/userHome/personalCenter.jsp").forward(req,resp);
     }
 
     /**
@@ -93,17 +97,26 @@ public class AppointmentServlet extends BaseServlet {
 
         String rosterId = req.getParameter("rosterId");
 
+
         HttpSession session = req.getSession();
-//        UserDO user = (UserDO)session.getAttribute("user");
-        UserDO user = new UserDO();
-        user.setId("1");
+
+        ServletContext servletContext = req.getServletContext();
+
+
+        UserDO user = (UserDO)session.getAttribute("userDO");
+
         AppointmentDO appointmentDO = new AppointmentDO(user.getId(),rosterId);
+
         AppointmentService.getInstance().deleteAppointment(appointmentDO);
 
-        session.setAttribute("appointmentList",AppointmentService.getInstance().appointmentOfUser(appointmentDO.getUserId()));
+        String info ="退订成功";
+        req.setAttribute("info",info);
 
-//        req.getRequestDispatcher("userHome.jsp").forward(req,resp);
+        servletContext.setAttribute("rosterDOList",RosterService.getInstance().listRoster());
 
+        session.setAttribute("appointmentOfUser", RosterService.getInstance().getRosterOfUser(user.getId()));
+
+        req.getRequestDispatcher("/userHome/personalCenter.jsp").forward(req,resp);
     }
 
 }

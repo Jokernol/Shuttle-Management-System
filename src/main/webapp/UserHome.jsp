@@ -98,6 +98,15 @@
     map: map,
     clickable: true
   })
+  temp1.on('dblclick',function(e){
+    alert(e.target.getLabel().content);
+    var msg = "您确定要退出当前账号吗？";
+    if (confirm(msg)==true){
+      setform(e.target.getLabel().content);
+    }else{
+      return false;
+    }
+  })
   map.add(temp1);
   temp1.setLabel({
 
@@ -105,6 +114,10 @@
     direction: 'top' //设置文本标注方位
   });
       </c:forEach>
+
+  function setform(name){
+    window.location.href="${pageContext.request.contextPath}/station.do?name="+name;
+  }
 
   // var infoWindow = new AMap.InfoWindow({ //创建信息窗体
   //   isCustom: true,  //使用自定义窗体

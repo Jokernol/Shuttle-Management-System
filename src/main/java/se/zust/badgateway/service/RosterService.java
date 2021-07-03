@@ -1,7 +1,9 @@
 package se.zust.badgateway.service;
 
 import org.apache.ibatis.session.SqlSession;
+import se.zust.badgateway.mapper.DriverMapper;
 import se.zust.badgateway.mapper.RosterMapper;
+import se.zust.badgateway.pojo.DO.DriverDO;
 import se.zust.badgateway.pojo.DO.RosterDO;
 import se.zust.badgateway.pojo.DTO.RosterDTO;
 import se.zust.badgateway.util.MybatisUtils;
@@ -88,6 +90,7 @@ public class RosterService {
 
         RosterMapper mapper = sqlSession.getMapper(RosterMapper.class);
 
+
         mapper.deleteRosterById(id);
 
         List<RosterDO> rosterList = mapper.listRoster();
@@ -97,5 +100,41 @@ public class RosterService {
         sqlSession.close();
 
         return rosterList;
+    }
+
+    public List<RosterDO> getRosterOfUser(String id){
+
+        SqlSession sqlSession = MybatisUtils.getSqlSession();
+
+        RosterMapper mapper = sqlSession.getMapper(RosterMapper.class);
+
+
+
+        List<RosterDO> rosterDOList = mapper.getRosterOfUser(id);
+
+        sqlSession.commit();
+
+        sqlSession.close();
+
+        return rosterDOList;
+
+
+    }
+
+    public boolean updateRoster(RosterDO rosterDO) {
+        if (ObjectUtils.isAnyFiledNull(rosterDO)) {
+            return false;
+        }
+
+        SqlSession sqlSession = MybatisUtils.getSqlSession();
+        RosterMapper mapper = sqlSession.getMapper(RosterMapper.class);
+
+        mapper.updateRoster(rosterDO);
+
+        sqlSession.commit();
+
+        sqlSession.close();
+
+        return true;
     }
 }

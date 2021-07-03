@@ -6,7 +6,7 @@
   <settings>
     <setting name="mapUnderscoreToCamelCase" value="true"/>
   </settings>
-  <environments default="mariadb">
+  <environments default="mysql_wfy">
     <environment id="mariadb">
       <transactionManager type="JDBC"/>
       <dataSource type="POOLED">
@@ -20,7 +20,7 @@
       <transactionManager type="JDBC"/>
       <dataSource type="POOLED">
         <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
-        <property name="url" value="jdbc:mysql://localhost:3306/class_design?serverTimezone=UTC"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/badgateway?serverTimezone=UTC"/>
         <property name="username" value="root"/>
         <property name="password" value="wfy258789"/>
       </dataSource>

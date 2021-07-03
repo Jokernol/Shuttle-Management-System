@@ -89,7 +89,7 @@
     return  true;
   }
 </script>
-<form action="${pageContext.request.contextPath}/station.do" method="post">
+<form action="${pageContext.request.contextPath}/stations/post" method="post">
   车站名:
   <input name="position" >
   <input type="text" id="x" name="x" value=""  hidden/>

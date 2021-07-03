@@ -36,6 +36,8 @@
       <ul class="nav navbar-nav navbar-right">
         <li><a href="#">欢迎您 ,</a></li>
         <li><a href="#">${sessionScope.userDO.username}</a></li>
+        <li><a href="/sessions/delete" >注销</a></li>
+
       </ul>
     </div>
   </div>
@@ -48,6 +50,8 @@
         <li class="active"><a href="#">车辆信息汇总</a></li>
         <li><a href="/adminHome/rosterManage.jsp">排班信息汇总</a></li>
         <li><a href="/adminHome/driverManage.jsp">驾驶员信息汇总</a></li>
+        <li><a href="/adminHome/addStation.jsp">添加地图</a></li>
+
       </ul>
     </div>
 
@@ -78,15 +82,16 @@
                 <td>${BusDO.drivingLicense}&nbsp;&nbsp;</td>
                 <td>${BusDO.registerTime}&nbsp;&nbsp;</td>
                 <td><a href="${pageContext.request.contextPath}/buses/delete?id=${BusDO.id}">删除&nbsp;&nbsp;</a></td>
-                <td><a name="update" id="update">更新</a>&nbsp;&nbsp;&nbsp;&nbsp;</td>
-                <td><form action="${pageContext.request.contextPath}/buses/put" id="update-form" style="display: none">
-                  <input type="text" name="id" value="${BusDO.id}" style="display: none">
-                  座位数:<input type="text" name="seat" value="${BusDO.seat}" size="1">&nbsp;
-                  品牌:<input type="text" name="brand" value="${BusDO.brand}" size="1">&nbsp;
-                  <input type="text" name="insuranceDate" value="${BusDO.insuranceDate}" style="display: none">
-                  行驶证：<input type="text" name="drivingLicense" value="${BusDO.drivingLicense}" size="1">&nbsp;
-                  <input type="text" name="registerTime" value="${BusDO.registerTime}" style="display: none">
-                  <input type="submit" value="修改">
+                <td>
+                    <a name="update" id="update" onclick="$(this).next().toggle()">更新</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <form action="${pageContext.request.contextPath}/buses/put" method="post" id="update-form" style="display: none">
+                            <input type="text" name="id" value="${BusDO.id}" hidden>
+                      座位数:<input type="text" name="seat" value="${BusDO.seat}" size="1">&nbsp;
+                       品牌:<input type="text" name="brand" value="${BusDO.brand}" size="1">&nbsp;
+                            <input type="text" name="insuranceDate" value="${BusDO.insuranceDate}" style="display: none">
+                       行驶证：<input type="text" name="drivingLicense" value="${BusDO.drivingLicense}" size="1">&nbsp;
+                            <input type="text" name="registerTime" value="${BusDO.registerTime}" size="1">&nbsp;
+                             <input type="submit" value="更新">
                 </form>
                 </td>
               </tr>
@@ -132,21 +137,7 @@
     }
   };
 
-  document.getElementById("update").onclick = function (){
 
-    //使用if判断，判断button按钮的value属性
-    if (b===0) {
-      // 如果是隐藏，那么点击后通过div盒子的id修改css样式，将display属性值改为none
-      document.getElementById("update-form").style.display = "block";
-      //this关键字获取的是当前对象  通过this关键字来修改button的value值
-      b=1;
-    }else if (b===1) {
-      // 如果是显示，那么点击后通过div盒子的id修改css样式，将display属性值改为block
-      document.getElementById("update-form").style.display = "none";
-      //this关键字获取的是当前对象  通过this关键字来修改button的value值
-      b=0
-    }
-  };
 
   window.onload=function (){
     var str="${info}";

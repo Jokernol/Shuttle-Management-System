@@ -36,6 +36,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li><a href="#">欢迎您,</a></li>
         <li><a href="#">${sessionScope.userDO.username}</a></li>
+        <li><a href="/sessions/delete" >注销</a></li>
       </ul>
     </div>
   </div>
@@ -49,6 +50,9 @@
         <li><a href="/adminHome/busManage.jsp">车辆信息汇总</a></li>
         <li><a href="/adminHome/rosterManage.jsp">排班信息汇总</a></li>
         <li><a href="/adminHome/driverManage.jsp">驾驶员信息汇总</a></li>
+        <li><a href="/adminHome/addStation.jsp">添加地图</a></li>
+
+
       </ul>
     </div>
 
@@ -76,15 +80,17 @@
                   <td>${UserDO.identity}&nbsp;&nbsp;</td>
                   <td>${UserDO.telephone}&nbsp;&nbsp;</td>
                   <td><a href="${pageContext.request.contextPath}/users/delete?id=${UserDO.id}">删除&nbsp;&nbsp;</a></td>
-                  <td><a name="update" id="update" ontoggle="">更新</a>&nbsp;&nbsp;&nbsp;&nbsp;</td>
-                  <td><form action="${pageContext.request.contextPath}/users/put" id="update-form" style="display: none">
-                    <input type="text" name="id" value="${UserDO.id}" style="display: none">
-                    姓名:<input type="text" value="${UserDO.username}" name="username" size="1">&nbsp;
-                    密码:<input type="text" value="${UserDO.password}" name="password" size="1">&nbsp;
-                    组别:<input type="text" value="${UserDO.identity}" name="group" size="1">&nbsp;
-                    电话:<input type="text" value="${UserDO.telephone}" name="telephone" size="1">&nbsp;
-                    <input type="submit" value="修改">
-                  </form>
+                  <td>
+                    <a name="update" id="update" onclick="$(this).next().toggle()">更新</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <form action="${pageContext.request.contextPath}/users/put" id="update-form" style="display: none">
+                          <input type="text" name="id" value="${UserDO.id}" style="display: none">
+                      姓名:<input type="text" value="${UserDO.username}" name="username" size="1">&nbsp;
+                      密码:<input type="text" value="${UserDO.password}" name="password" size="1">&nbsp;
+                      组别:<input type="text" value="${UserDO.identity}" name="identity" size="1">&nbsp;
+                      电话:<input type="text" value="${UserDO.telephone}" name="telephone" size="1">&nbsp;
+                      类型:<input type="text" name="type" size="1" value="${UserDO.type}" size="1">
+                          <input type="submit" value="更新">
+                    </form>
                   </td>
                 </tr>
 </c:forEach>
@@ -128,21 +134,6 @@
     }
   };
 
-  document.getElementById("update").onclick = function (){
-
-    //使用if判断，判断button按钮的value属性
-    if (b===0) {
-      // 如果是隐藏，那么点击后通过div盒子的id修改css样式，将display属性值改为none
-      document.getElementById("update-form").style.display = "block";
-      //this关键字获取的是当前对象  通过this关键字来修改button的value值
-      b=1;
-    }else if (b===1) {
-      // 如果是显示，那么点击后通过div盒子的id修改css样式，将display属性值改为block
-      document.getElementById("update-form").style.display = "none";
-      //this关键字获取的是当前对象  通过this关键字来修改button的value值
-      b=0
-    }
-  };
   window.onload=function (){
     var str="${info}";
     if (str==="error"){

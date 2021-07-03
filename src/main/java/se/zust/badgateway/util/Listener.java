@@ -21,11 +21,7 @@ public class Listener implements ServletContextListener {
         servletContextEvent.getServletContext().setAttribute("busDOList", BusService.getInstance().listBus());
         servletContextEvent.getServletContext().setAttribute("driverDOList", DriverService.getInstance().listDriver());
         servletContextEvent.getServletContext().setAttribute("stationList", StationService.getInstance().allStation());
-        System.out.print("map坐标初始化");
-
         servletContextEvent.getServletContext().setAttribute("rosterDOList",RosterService.getInstance().listRoster());
-        System.out.print("预约列表初始化");
-
     }
 
     @Override
