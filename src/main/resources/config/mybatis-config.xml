@@ -3,7 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
-  <environments default="mariadb">
+  <environments default="mysql_hcf">
     <environment id="mariadb">
       <transactionManager type="JDBC"/>
       <dataSource type="POOLED">
@@ -13,13 +13,22 @@
         <property name="password" value="198058"/>
       </dataSource>
     </environment>
-    <environment id="mysql">
+    <environment id="mysql_wfy">
       <transactionManager type="JDBC"/>
       <dataSource type="POOLED">
         <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
         <property name="url" value="jdbc:mysql://localhost:3306/class_design?serverTimezone=UTC"/>
         <property name="username" value="root"/>
         <property name="password" value="wfy258789"/>
+      </dataSource>
+    </environment>
+    <environment id="mysql_hcf">
+      <transactionManager type="JDBC"/>
+      <dataSource type="POOLED">
+        <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/badgateway?serverTimezone=UTC"/>
+        <property name="username" value="root"/>
+        <property name="password" value="hcf200012!"/>
       </dataSource>
     </environment>
   </environments>

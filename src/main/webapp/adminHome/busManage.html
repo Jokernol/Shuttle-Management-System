@@ -11,13 +11,12 @@
     <!-- 引入Jquery -->
     <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
     <!-- 引入art-template.js -->
-    <script src="art-template.js" type="text/javascript" charset="utf-8"></script>
+    <script src="../js/art-template.js" type="text/javascript" charset="utf-8"></script>
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="../../favicon.ico">
     <title>班车后台管理</title>
-    <link href="bootstrap.min.css" rel="stylesheet">
-    <link href="dashboard.css" rel="stylesheet">
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/dashboard.css" rel="stylesheet">
 </head>
 <style type="text/css">
 </style>
@@ -47,14 +46,14 @@
                     <li><a href="driverManage.html">驾驶员信息汇总</a></li>
                 </ul>
             </div>
-    
+
             <div id="my_bgc" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
                 <div id="mysub-header">
                     <h1 class="sub-header">车辆汇总</h1>
                 </div>
                 <div class="table-responsive">
-                    <div class="table table-striped">        
-                            
+                    <div class="table table-striped">
+
                             <div id="data5" style="float:left;margin-left: 20px;">
                                 <div style="font-size:18px;margin-left:155px;">车辆信息</div>
                                     <table>
@@ -66,8 +65,6 @@
                                             <th>行驶证&nbsp;&nbsp;</th>
                                             <th>注册时间&nbsp;&nbsp;</th>
                                         </tr>
-                                   
-                                    
                                         <tr>
                                             <td>111</td>
                                             <td>111</td>
@@ -80,13 +77,13 @@
                                             <td><form action="" method="post" id="update-form" style="display: none">
                                                     品牌:<input type="text" name="brand" size="1">&nbsp;
                                                     座位数:<input type="text" name="seat" size="1">&nbsp;
-                                                    行驶证：<input type="text" name="drivingLicense" size="1">&nbsp; 
-                                                    <input type="submit" value="增加">                
+                                                    行驶证：<input type="text" name="drivingLicense" size="1">&nbsp;
+                                                    <input type="submit" value="增加">
                                                 </form>
-                                            </td>   
+                                            </td>
                                         </tr>
                                     </table>
-                                    
+
                                 <div class="addUser"><input type="button" id="addBus" value="增加班车"></div>
                                 <div class="form" id="form" style="display: none;">
                                     <form action="" method="put">
@@ -112,7 +109,7 @@
                 var a=b=0;
                  //通过button按钮的id获取点击事件
                 document.getElementById("addBus").onclick = function (){
-                    
+
                 //使用if判断，判断button按钮的value属性
                     if (a===0) {
                         // 如果是隐藏，那么点击后通过div盒子的id修改css样式，将display属性值改为none
@@ -128,7 +125,7 @@
                 };
 
                 document.getElementById("update").onclick = function (){
-                    
+
                 //使用if判断，判断button按钮的value属性
                     if (b===0) {
                         // 如果是隐藏，那么点击后通过div盒子的id修改css样式，将display属性值改为none
@@ -144,7 +141,7 @@
                 };
 
         </script>
-        
+
 </body>
 
 </html>

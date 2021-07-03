@@ -28,16 +28,16 @@
     </div>
     <div class="input-form">
       <div class="border-form">
-        <input type="text" name="username" placeholder="username" class="border-item" required="required">
+        <input type="text" name="username" id="username" placeholder="username" class="border-item" required="required">
       </div>
       <div class="border-form">
-        <input type="text" name="password" placeholder="password" class="border-item" required="required">
+        <input type="text" name="password" id="password" placeholder="password" class="border-item" required="required">
       </div>
       <div class="border-form">
-        <input type="text" name="identity" placeholder="identity" class="border-item" required="required">
+        <input type="text" name="identity" id="identity" placeholder="identity" class="border-item" required="required">
       </div>
       <div class="border-form">
-        <input type="text" name="telephone" placeholder="telephone" class="border-item" required="required">
+        <input type="text" name="telephone" id="telephone" placeholder="telephone" class="border-item" required="required">
       </div>
     </div>
     <div class="action">
@@ -56,4 +56,22 @@
   </footer>
 </div>
 </body>
+<script>
+  window.onload=function (){
+    var str="${info}";
+    if (str==="error"){
+      alert("用户名已存在");
+    }
+  }
+  function regist(){
+    var username=document.getElementById("username").value;
+    var password=document.getElementById("password").value;
+    var identity=document.getElementById("identity").value;
+    var telephone=document.getElementById("telephone").value;
+    var xhr_2=new XMLHttpRequest();
+    var url="/users/post?"+"username="+username+"&password="+password+"&identity="+identity+"&telephone="+telephone;
+    window.location.href=url;
+
+  };
+</script>
 </html>

@@ -24,26 +24,31 @@ public class SessionServlet extends BaseServlet {
      */
     protected void post(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         LoginDTO loginDTO = BeanUtils.Request2Bean(req, LoginDTO.class);
-
+        System.out.println(loginDTO.getUsername());
         HttpSession httpSession = req.getSession();
 
         if (loginDTO != null) {
             UserDO userDO = SessionService.getInstance().getUserByUserName(loginDTO.getUsername());
 
             int result = SessionService.getInstance().login(loginDTO);
+            req.setAttribute("info", "error");
+
             switch (result) {
                 case 0:
                     httpSession.setAttribute("userDO", userDO);
-                    req.getRequestDispatcher("/index.jsp").forward(req, resp);
+                    req.getRequestDispatcher("/adminHome/adminHome.jsp").forward(req, resp);
                     break;
                 case 1:
                     httpSession.setAttribute("userDO", userDO);
-                    req.getRequestDispatcher("/index.jsp").forward(req, resp);
+                    req.getRequestDispatcher("/userHome/userHome.jsp").forward(req, resp);
                     break;
                 default:
                     req.setAttribute("info", "error");
+                    req.getRequestDispatcher("/login.jsp").forward(req, resp);
                     break;
             }
+
+
         }
     }
 

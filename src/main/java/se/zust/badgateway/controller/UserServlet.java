@@ -23,15 +23,15 @@ public class UserServlet extends BaseServlet {
      * 添加用户
      */
     protected void post(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-        UserDTO userDTO = BeanUtils.Request2Bean(req, UserDTO.class);
-
+        UserDTO userDTO = BeanUtils.Request2Bean(req,UserDTO.class);
         if (UserService.getInstance().register(userDTO)) {
             req.setAttribute("info", "success");
+            resp.sendRedirect("/login.jsp");
         } else {
-            req.setAttribute("info", "error");
+            req.setAttribute("info","error");
+            req.getRequestDispatcher("/regist.jsp").forward(req,resp);
         }
 
-        req.getRequestDispatcher("/index.jsp").forward(req, resp);
     }
 
     /**

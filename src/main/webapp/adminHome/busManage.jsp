@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: 韩成峰
@@ -17,13 +18,12 @@
   <!-- 引入Jquery -->
   <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
   <!-- 引入art-template.js -->
-  <script src="art-template.js" type="text/javascript" charset="utf-8"></script>
+  <script src="../js/art-template.js" type="text/javascript" charset="utf-8"></script>
   <meta name="description" content="">
   <meta name="author" content="">
-  <link rel="icon" href="../../favicon.ico">
   <title>班车后台管理</title>
-  <link href="bootstrap.min.css" rel="stylesheet">
-  <link href="dashboard.css" rel="stylesheet">
+  <link href="../css/bootstrap.min.css" rel="stylesheet">
+  <link href="../css/dashboard.css" rel="stylesheet">
 </head>
 <body>
 <!--导航栏-->
@@ -35,7 +35,7 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav navbar-right">
         <li><a href="#">欢迎您 ,</a></li>
-        <li><a href="#"></a></li>
+        <li><a href="#">${sessionScope.userDO.username}</a></li>
       </ul>
     </div>
   </div>
@@ -44,10 +44,10 @@
   <div class="row">
     <div class="col-sm-3 col-md-2 sidebar">
       <ul class="nav nav-sidebar">
-        <li><a href="adminHome.html">用户信息汇总</a></li>
+        <li><a href="adminHome.jsp">用户信息汇总</a></li>
         <li class="active"><a href="#">车辆信息汇总</a></li>
-        <li><a href="rosterManage.html">排班信息汇总</a></li>
-        <li><a href="driverManage.html">驾驶员信息汇总</a></li>
+        <li><a href="rosterManage.jsp">排班信息汇总</a></li>
+        <li><a href="driverManage.jsp">驾驶员信息汇总</a></li>
       </ul>
     </div>
 
@@ -60,6 +60,7 @@
 
           <div id="data5" style="float:left;margin-left: 20px;">
             <div style="font-size:18px;margin-left:155px;">车辆信息</div>
+<c:forEach items="${busDOList}" var="BusDO">
             <table>
               <tr>
                 <th>序号&nbsp;&nbsp;</th>
@@ -69,30 +70,31 @@
                 <th>行驶证&nbsp;&nbsp;</th>
                 <th>注册时间&nbsp;&nbsp;</th>
               </tr>
-
-
               <tr>
-                <td>111</td>
-                <td>111</td>
-                <td>111</td>
-                <td>111</td>
-                <td>1111</td>
-                <td>1111</td>
-                <td><a href="">删除&nbsp;&nbsp;</a></td>
+                <td>${BusDO.id}&nbsp;&nbsp;</td>
+                <td>${BusDO.brand}&nbsp;&nbsp;</td>
+                <td>${BusDO.seat}&nbsp;&nbsp;</td>
+                <td>${BusDO.insuranceDate}&nbsp;&nbsp;</td>
+                <td>${BusDO.drivingLicense}&nbsp;&nbsp;</td>
+                <td>${BusDO.registerTime}&nbsp;&nbsp;</td>
+                <td><a href="${pageContext.request.contextPath}/buses/delete?id=${BusDO.id}">删除&nbsp;&nbsp;</a></td>
                 <td><a name="update" id="update">更新</a>&nbsp;&nbsp;&nbsp;&nbsp;</td>
-                <td><form action="" method="post" id="update-form" style="display: none">
-                  品牌:<input type="text" name="brand" size="1">&nbsp;
-                  座位数:<input type="text" name="seat" size="1">&nbsp;
-                  行驶证：<input type="text" name="drivingLicense" size="1">&nbsp;
-                  <input type="submit" value="增加">
+                <td><form action="${pageContext.request.contextPath}/buses/put" id="update-form" style="display: none">
+                  <input type="text" name="id" value="${BusDO.id}" style="display: none">
+                  座位数:<input type="text" name="seat" value="${BusDO.seat}" size="1">&nbsp;
+                  品牌:<input type="text" name="brand" value="${BusDO.brand}" size="1">&nbsp;
+                  <input type="text" name="insuranceDate" value="${BusDO.insuranceDate}" style="display: none">
+                  行驶证：<input type="text" name="drivingLicense" value="${BusDO.drivingLicense}" size="1">&nbsp;
+                  <input type="text" name="registerTime" value="${BusDO.registerTime}" style="display: none">
+                  <input type="submit" value="修改">
                 </form>
                 </td>
               </tr>
             </table>
-
+</c:forEach>
             <div class="addUser"><input type="button" id="addBus" value="增加班车"></div>
             <div class="form" id="form" style="display: none;">
-              <form action="" method="put">
+              <form action="buses/post" method="post">
                 品牌:<input type="text" name="name" size="7">&nbsp;
                 座位数:<input type="text" name="password" size="7">&nbsp;
                 保险时间:<input type="text" name="group" size="7">&nbsp;
@@ -146,6 +148,12 @@
     }
   };
 
+  window.onload=function (){
+    var str="${info}";
+    if (str==="error"){
+      alert("操作失败，数据不能为空");
+    }
+  }
 </script>
 
 </body>

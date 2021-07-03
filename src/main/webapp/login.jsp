@@ -13,7 +13,6 @@
   <title>欢迎访问班车管理系统</title>
   <link rel="stylesheet" type="text/css" href="${path}/css/login.css">
   <script src="http://libs.baidu.com/jquery/2.1.4/jquery.min.js"></script>
-  <script type="text/javascript" src="${path}/js/login.js"></script>
 </head>
 <body>
 <div class="header">
@@ -30,10 +29,10 @@
         </div>
         <div class="input-form">
             <div class="border-form">
-                <input type="text" name="username" placeholder="username" class="border-item" required="required">
+                <input type="text" name="username" id="username" placeholder="username" class="border-item" required="required">
             </div>
             <div class="border-form">
-                <input type="password" name="password" placeholder="password" class="border-item" required="required">
+                <input type="password" name="password" id="password" placeholder="password" class="border-item" required="required">
             </div>
         </div>
       <div class="action">
@@ -53,4 +52,23 @@
     </footer>
 </div>
 </body>
+<script>
+  window.onload=function (){
+    var str="${info}";
+    if (str==="error"){
+      alert("密码错误");
+    }
+  }
+  function login(){
+    var username=document.getElementById("username").value;
+    var password=document.getElementById("password").value;
+    var xhr=new XMLHttpRequest();
+    var url="/sessions/post?"+"username="+username+"&password="+password;
+    window.location.href=url;
+  };
+  function regist(){
+    window.location.href="/regist.jsp";
+  };
+
+</script>
 </html>

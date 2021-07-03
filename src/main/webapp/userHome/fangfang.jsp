@@ -17,13 +17,12 @@
   <!-- 引入Jquery -->
   <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
   <!-- 引入art-template.js -->
-  <script src="art-template.js" type="text/javascript" charset="utf-8"></script>
+  <script src="../js/art-template.js" type="text/javascript" charset="utf-8"></script>
   <meta name="description" content="">
   <meta name="author" content="">
-  <link rel="icon" href="../../favicon.ico">
   <title>欢迎访问智慧班车</title>
-  <link href="bootstrap.min.css" rel="stylesheet">
-  <link href="dashboard.css" rel="stylesheet">
+  <link href="../css/bootstrap.min.css" rel="stylesheet">
+  <link href="../css/dashboard.css" rel="stylesheet">
 </head>
 <body>
 <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -44,7 +43,7 @@
     <!--侧边栏-->
     <div class="col-sm-3 col-md-2 sidebar">
       <ul class="nav nav-sidebar">
-        <li><a href="userHome.html">排班信息汇总</a></li>
+        <li><a href="userHome.jsp">排班信息汇总</a></li>
         <li class="active"><a href="#">地理信息汇总</a></li>
       </ul>
     </div>

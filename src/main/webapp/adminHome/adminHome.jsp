@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: 韩成峰
@@ -17,13 +18,12 @@
   <!-- 引入Jquery -->
   <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
   <!-- 引入art-template.js -->
-  <script src="art-template.js" type="text/javascript" charset="utf-8"></script>
+  <script src="../js/art-template.js" type="text/javascript" charset="utf-8"></script>
   <meta name="description" content="">
   <meta name="author" content="">
-  <link rel="icon" href="../../favicon.ico">
   <title>班车后台管理</title>
-  <link href="bootstrap.min.css" rel="stylesheet">
-  <link href="dashboard.css" rel="stylesheet">
+  <link href="../css/bootstrap.min.css" rel="stylesheet">
+  <link href="../css/dashboard.css" rel="stylesheet">
 </head>
 <body>
 <!--导航栏-->
@@ -35,7 +35,7 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav navbar-right">
         <li><a href="#">欢迎您,</a></li>
-        <li><a href="#">ABC</a></li>
+        <li><a href="#">${sessionScope.userDO.username}</a></li>
       </ul>
     </div>
   </div>
@@ -46,9 +46,9 @@
     <div class="col-sm-3 col-md-2 sidebar">
       <ul class="nav nav-sidebar">
         <li class="active"><a href="#">用户信息汇总</a></li>
-        <li><a href="busManage.html">车辆信息汇总</a></li>
-        <li><a href="rosterManage.html">排班信息汇总</a></li>
-        <li><a href="driverManage.html">驾驶员信息汇总</a></li>
+        <li><a href="busManage.jsp">车辆信息汇总</a></li>
+        <li><a href="rosterManage.jsp">排班信息汇总</a></li>
+        <li><a href="driverManage.jsp">驾驶员信息汇总</a></li>
       </ul>
     </div>
 
@@ -58,12 +58,8 @@
       </div>
       <div class="table-responsive">
         <div class="table table-striped">
-          <div>
-
             <div id="data5" style="float:left;margin-left: 20px;">
               <div style="font-size:18px;margin-left:155px;">用户信息</div>
-
-
               <table>
                 <tr>
                   <th>序号&nbsp;&nbsp;</th>
@@ -71,44 +67,41 @@
                   <th>密码&nbsp;&nbsp;</th>
                   <th>组别&nbsp;&nbsp;</th>
                   <th>电话&nbsp;&nbsp;</th>
-
                 </tr>
-
-
-
+<c:forEach items="${userDOList}" var="UserDO">
                 <tr>
-                  <td>111&nbsp;&nbsp;</td>
-                  <td>111&nbsp;&nbsp;</td>
-                  <td>111&nbsp;&nbsp;</td>
-                  <td>111&nbsp;&nbsp;</td>
-                  <td>1111&nbsp;&nbsp;</td>
-                  <td><a href="">删除&nbsp;&nbsp;</a></td>
+                  <td>${UserDO.id}&nbsp;&nbsp;</td>
+                  <td>${UserDO.username}&nbsp;&nbsp;</td>
+                  <td>${UserDO.password}&nbsp;&nbsp;</td>
+                  <td>${UserDO.group}&nbsp;&nbsp;</td>
+                  <td>${UserDO.telephone}&nbsp;&nbsp;</td>
+                  <td><a href="${pageContext.request.contextPath}/users/delete">删除&nbsp;&nbsp;</a></td>
                   <td><a name="update" id="update">更新</a>&nbsp;&nbsp;&nbsp;&nbsp;</td>
-                  <td><form action="" method="post" id="update-form" style="display: none">
-                    姓名:<input type="text" name="name" size="1">&nbsp;
-                    密码:<input type="text" name="password" size="1">&nbsp;
-                    组别:<input type="text" name="group" size="1">&nbsp;
-                    电话:<input type="text" name="telephone" size="1">&nbsp;
+                  <td><form action="${pageContext.request.contextPath}/users/put" id="update-form" style="display: none">
+                    <input type="text" name="id" value="${UserDO.id}" style="display: none">
+                    姓名:<input type="text" value="${UserDO.username}" name="username" size="1">&nbsp;
+                    密码:<input type="text" value="${UserDO.password}" name="password" size="1">&nbsp;
+                    组别:<input type="text" value="${UserDO.group}" name="group" size="1">&nbsp;
+                    电话:<input type="text" value="${UserDO.telephone}" name="telephone" size="1">&nbsp;
                     <input type="submit" value="增加">
                   </form>
                   </td>
                 </tr>
+</c:forEach>
               </table>
-
-            </div>
+              <div class="addUser"><input type="button" id="addUser" value="增加用户"></div>
+              <div class="form" id="form" style="display: none;">
+                <form action="users/post" method="post">
+                  姓名:<input type="text" name="name" size="7">&nbsp;
+                  密码:<input type="text" name="password" size="7">&nbsp;
+                  组别:<input type="text" name="group" size="7">&nbsp;
+                  电话:<input type="text" name="telephone" size="7">&nbsp;
+                  <input type="submit" value="增加">
+                  <br/>
+                </form>
+              </div>
           </div>
           <div>
-            <div class="addUser"><input type="button" id="addUser" value="增加用户"></div>
-            <div class="form" id="form" style="display: none;">
-              <form action="" method="put">
-                姓名:<input type="text" name="name" size="7">&nbsp;
-                密码:<input type="text" name="password" size="7">&nbsp;
-                组别:<input type="text" name="group" size="7">&nbsp;
-                电话:<input type="text" name="telephone" size="7">&nbsp;
-                <input type="submit" value="增加">
-                <br/>
-              </form>
-            </div>
           </div>
         </div>
       </div>
@@ -150,7 +143,12 @@
       b=0
     }
   };
-
+  window.onload=function (){
+    var str="${info}";
+    if (str==="error"){
+      alert("操作失败，数据不能为空");
+    }
+  }
 </script>
 
 

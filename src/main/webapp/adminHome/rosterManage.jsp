@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: 韩成峰
@@ -17,13 +18,13 @@
   <!-- 引入Jquery -->
   <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
   <!-- 引入art-template.js -->
-  <script src="art-template.js" type="text/javascript" charset="utf-8"></script>
+  <script src="../js/art-template.js" type="text/javascript" charset="utf-8"></script>
   <meta name="description" content="">
   <meta name="author" content="">
   <link rel="icon" href="../../favicon.ico">
   <title>班车后台管理</title>
-  <link href="bootstrap.min.css" rel="stylesheet">
-  <link href="dashboard.css" rel="stylesheet">
+  <link href="../css/bootstrap.min.css" rel="stylesheet">
+  <link href="../css/dashboard.css" rel="stylesheet">
 </head>
 <body>
 <!--导航栏-->
@@ -35,7 +36,7 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav navbar-right">
         <li><a href="#">欢迎您 ,</a></li>
-        <li><a href="#"></a></li>
+        <li><a href="#">${sessionScope.userDO.username}</a></li>
       </ul>
     </div>
   </div>
@@ -44,10 +45,10 @@
   <div class="row">
     <div class="col-sm-3 col-md-2 sidebar">
       <ul class="nav nav-sidebar">
-        <li><a href="adminHome.html">用户信息汇总</a></li>
-        <li><a href="busManage.html">车辆信息汇总</a></li>
+        <li><a href="adminHome.jsp">用户信息汇总</a></li>
+        <li><a href="busManage.jsp">车辆信息汇总</a></li>
         <li class="active"><a href="#">排班信息汇总</a></li>
-        <li><a href="driverManage.html">驾驶员信息汇总</a></li>
+        <li><a href="driverManage.jsp">驾驶员信息汇总</a></li>
       </ul>
     </div>
 
@@ -60,47 +61,51 @@
 
           <div id="data5" style="float:left;margin-left: 20px;">
             <div style="font-size:18px;margin-left:155px;">排班信息</div>
+<c:forEach items="${rosterDOList}" var="Roster">
             <table>
               <tr>
                 <th>序号&nbsp;&nbsp;</th>
+                <th>车序号&nbsp;&nbsp;</th>
                 <th>驾驶员编号&nbsp;&nbsp;</th>
-                <th>出发时间&nbsp;&nbsp;</th>
                 <th>出发地&nbsp;&nbsp;</th>
                 <th>目的地&nbsp;&nbsp;</th>
-                <th>车牌&nbsp;&nbsp;</th>
+                <th>出发时间&nbsp;&nbsp;</th>
+                <th>剩余座位</th>
               </tr>
-
-
               <tr>
-                <td>11111</td>
-                <td>11111</td>
-                <td>11111</td>
-                <td>111111</td>
-                <td>1111</td>
-                <td>111111</td>
+                <td>${Roster.id}</td>
+                <td>${Roster.busId}</td>
+                <td>${Roster.driverId}</td>
+                <td>${Roster.origin}</td>
+                <td>${Roster.destination}</td>
+                <td>${Roster.departureTime}</td>
+                <td>${Roster.rest}</td>
                 <td><a href="">删除&nbsp;&nbsp;</a></td>
                 <td><a name="update" id="update">更新</a>&nbsp;&nbsp;&nbsp;&nbsp;</td>
                 <div id="update-form" style="display: none"><form action="" method="post" >
-                  驾驶员编号:<input type="text" name="driverId" size="1">&nbsp;
-                  出发时间:<input type="text" name="startTime" size="1">&nbsp;
-                  出发地：<input type="text" name="start" size="1">&nbsp;
-                  目的地：<input type="text" name="end" size="1">&nbsp;
-                  车牌：<input type="text" name="drivingLicense" size="1">&nbsp;
+                  <input type="text" name="id" value="${Roster.id}" style="display:none;">
+                  车序号：<input type="text" name="drivingLicense" size="1" value="${Roster.busId}">
+                  驾驶员编号:<input type="text" name="driverId" size="1" value="${Roster.driverId}">&nbsp;&nbsp;
+                  出发地：<input type="text" name="orgin" size="1" value="${Roster.origin}">&nbsp;
+                  目的地：<input type="text" name="destination" size="1" value="${Roster.destination}">&nbsp;&nbsp;
+                  出发时间:<input type="text" name="departureTime" size="1" value="${Roster.departureTime}">
+                  剩余:<input type="text" name="rest" size="1" value="${Roster.rest}">&nbsp;
                   <input type="submit" value="更新">
                 </form>
                 </div>
               </tr>
             </table>
+</c:forEach>
             <div>
               <div class="addUser"><input type="button" id="addRoster" value="增加用户"></div>
               <div class="form" id="form" style="display: none;">
                 <form action="" method="put">
-                  驾驶员编号:<input type="text" name="driverId" size="7">&nbsp;
-                  出发时间:<input type="text" name="startTime" size="7">&nbsp;
-                  出发地：<input type="text" name="start" size="7">&nbsp;
-                  目的地：<input type="text" name="end" size="7">&nbsp;
-                  车牌：<input type="text" name="drivingLicense" size="7">&nbsp;
-                  <input type="submit" value="增加">
+                  车序号：<input type="text" name="drivingLicense" size="1">
+                  驾驶员编号:<input type="text" name="driverId" size="1" >&nbsp;&nbsp;
+                  出发地：<input type="text" name="orgin" size="1" >&nbsp;
+                  目的地：<input type="text" name="destination" size="1" >&nbsp;&nbsp;
+                  出发时间:<input type="text" name="departureTime" size="1" >
+                  剩余:<input type="text" name="rest" size="1">&nbsp;
                   <br/>
                 </form>
               </div>
