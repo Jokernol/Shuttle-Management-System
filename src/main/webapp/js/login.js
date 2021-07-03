@@ -1,24 +1,19 @@
 function login(){
-  $.ajax({
-    type:"get",                       					 //提交方式为POST
-    url:"/User",        //设计提交数据处理的脚本文件的地址
-    data:
-      ({
-        username: $(" input[name='username'] ").val(),
-        password: $(" input[name='password'] ").val(),
-      }),
-    dataType: 'text',
-    error:function (){
-      alert("登陆异常");
-    },
-    success:function(result){
-      if(result==="3"){
-        alert("用户名不存在");
-      }else if(result==="2") {
-        alert("密码错误");
-      }
+  var formdata = new FormData();
+  var username=document.getElementById("username");
+  var password=document.getElementById("password");
+  formdata.append("username","password");
+  formdata.set("username",username)
+  formdata.set("password",password)
+  var xhr=new XMLHttpRequest();
+  xhr.open("post","sessions/post");
+  xhr.send(formdata);
+  xhr.onload=function () {
+    var result="${info}";
+    if (result!=null){
+      alert(result);
     }
-  })
+  }
 };
 function regist(){
   window.location.href="regist.jsp";

@@ -17,13 +17,12 @@
     <!-- 引入Jquery -->
     <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
     <!-- 引入art-template.js -->
-    <script src="art-template.js" type="text/javascript" charset="utf-8"></script>
+    <script src="../js/art-template.js" type="text/javascript" charset="utf-8"></script>
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="../../favicon.ico">
     <title>班车后台管理</title>
-    <link href="bootstrap.min.css" rel="stylesheet">
-    <link href="dashboard.css" rel="stylesheet">
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/dashboard.css" rel="stylesheet">
 </head>
 <body>
 <!--导航栏-->
@@ -35,7 +34,7 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav navbar-right">
         <li><a href="#">欢迎您 ,</a></li>
-        <li><a href="#"></a></li>
+        <li><a href="#">${sessionScope.userDO.username}</a></li>
       </ul>
     </div>
   </div>
@@ -44,9 +43,9 @@
   <div class="row">
     <div class="col-sm-3 col-md-2 sidebar">
       <ul class="nav nav-sidebar">
-        <li><a href="adminHome.html">用户信息汇总</a></li>
-        <li><a href="busManage.html">车辆信息汇总</a></li>
-        <li><a href="rosterManage.html">排班信息汇总</a></li>
+        <li><a href="adminHome.jsp">用户信息汇总</a></li>
+        <li><a href="busManage.jsp">车辆信息汇总</a></li>
+        <li><a href="rosterManage.jsp">排班信息汇总</a></li>
         <li class="active"><a href="#">驾驶员信息汇总</a></li>
       </ul>
     </div>
@@ -60,46 +59,47 @@
 
           <div id="data5" style="float:left;margin-left: 20px;">
             <div style="font-size:18px;margin-left:155px;">驾驶员信息</div>
+<c:forEach items="${driverDOList}" var="Driver">
             <table>
               <tr>
                 <th>序号&nbsp;&nbsp;</th>
+                <th>年龄&nbsp;&nbsp;</th>
                 <th>姓名&nbsp;&nbsp;</th>
                 <th>家庭住址&nbsp;&nbsp;</th>
-                <th>年龄&nbsp;&nbsp;</th>
-                <th>驾驶经验&nbsp;&nbsp;</th>
                 <th>电话&nbsp;&nbsp;</th>
+                <th>驾驶经验&nbsp;&nbsp;</th>
               </tr>
-
-
               <tr>
-                <td>11111</td>
-                <td>11111</td>
-                <td>11111</td>
-                <td>111</td>
-                <td>1111</td>
-                <td>1111&nbsp;&nbsp;</td>
-                <td><a href="">删除&nbsp;&nbsp;</a></td>
+                <td>${Driver.id}&nbsp;&nbsp;</td>
+                <td>${Driver.age}&nbsp;&nbsp;</td>
+                <td>${Driver.name}&nbsp;&nbsp;</td>
+                <td>${Driver.address}&nbsp;&nbsp;</td>
+                <td>${Driver.telephone}&nbsp;&nbsp;</td>
+                <td>${Driver.drivingExperience}&nbsp;&nbsp;</td>
+                <td><a href="${pageContext.request.contextPath}/drivers/delete?id=${Driver.id}">删除&nbsp;&nbsp;</a></td>
                 <td><a name="update" id="update">更新</a>&nbsp;&nbsp;&nbsp;&nbsp;</td>
                 <div id="update-form" style="display: none">
-                  <form action="" method="post" >
-                    姓名:<input type="text" name="name" size="1">&nbsp;
-                    家庭住址:<input type="text" name="address" size="1">&nbsp;
-                    年龄：<input type="text" name="age" size="1">&nbsp;
-                    驾驶经验：<input type="text" name="drivingExperience" size="1">&nbsp;
-                    电话<input type="text" name="telephone" size="1">&nbsp;
+                  <form action="${pageContext.request.contextPath}/drivers/put">
+                    <input type="text" name="id" value="${Driver.id}" style="display: none">
+                    年龄：<input type="text" name="age" size="1" value="${Driver.age}">&nbsp;
+                    姓名:<input type="text" name="name" size="1" value="${Driver.name}" >&nbsp;
+                    家庭住址:<input type="text" name="address" size="1" value="${Driver.address}">&nbsp;
+                    电话<input type="text" name="telephone" size="1" value="${Driver.telephone}">&nbsp;
+                    驾驶经验：<input type="text" name="drivingExperience" size="1" value="${Driver.drivingExperience}">&nbsp;
                     <input type="submit" value="更新">
                   </form>
                 </div>
               </tr>
             </table>
+</c:forEach>
             <div class="addUser"><input type="button" id="addDriver" value="增加驾驶员"></div>
             <div class="form" id="form" style="display: none;">
-              <form action="" method="put">
-                姓名:<input type="text" name="name" size="1">&nbsp;
-                家庭住址:<input type="text" name="address" size="1">&nbsp;
+              <form action="${pageContext.request.contextPath}/drivers/post">
                 年龄：<input type="text" name="age" size="1">&nbsp;
+                姓名:<input type="text" name="name" size="1" >&nbsp;
+                家庭住址:<input type="text" name="address" size="1" >&nbsp;
+                电话<input type="text" name="telephone" size="1" >&nbsp;
                 驾驶经验：<input type="text" name="drivingExperience" size="1">&nbsp;
-                电话<input type="text" name="telephone" size="1">&nbsp;
                 <input type="submit" value="增加">
                 <br/>
               </form>
@@ -150,6 +150,12 @@
     }
   };
 
+  window.onload=function (){
+    var str="${info}";
+    if (str==="error"){
+      alert("操作失败，数据不能为空");
+    }
+  }
 </script>
 
 </body>

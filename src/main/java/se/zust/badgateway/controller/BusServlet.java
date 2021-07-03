@@ -30,7 +30,7 @@ public class BusServlet extends BaseServlet {
             req.setAttribute("info", "error");
         }
 
-        req.getRequestDispatcher("/index.jsp").forward(req, resp);
+        req.getRequestDispatcher("/busManage.jsp").forward(req, resp);
     }
 
     /**
