@@ -55,7 +55,7 @@ public class RosterServlet extends BaseServlet {
 
     protected void delete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String id = req.getParameter("id");
-
+        System.out.println(id);
         List<RosterDO> rosterList = RosterService.getInstance().deleteRoster(id);
 
         ServletContext servletContext = req.getServletContext();

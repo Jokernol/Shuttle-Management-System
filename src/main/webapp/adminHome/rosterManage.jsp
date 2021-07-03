@@ -45,10 +45,10 @@
   <div class="row">
     <div class="col-sm-3 col-md-2 sidebar">
       <ul class="nav nav-sidebar">
-        <li><a href="adminHome.jsp">用户信息汇总</a></li>
-        <li><a href="busManage.jsp">车辆信息汇总</a></li>
+        <li><a href="/adminHome/adminHome.jsp">用户信息汇总</a></li>
+        <li><a href="/adminHome/busManage.jsp">车辆信息汇总</a></li>
         <li class="active"><a href="#">排班信息汇总</a></li>
-        <li><a href="driverManage.jsp">驾驶员信息汇总</a></li>
+        <li><a href="/adminHome/driverManage.jsp">驾驶员信息汇总</a></li>
       </ul>
     </div>
 
@@ -61,7 +61,6 @@
 
           <div id="data5" style="float:left;margin-left: 20px;">
             <div style="font-size:18px;margin-left:155px;">排班信息</div>
-<c:forEach items="${rosterDOList}" var="Roster">
             <table>
               <tr>
                 <th>序号&nbsp;&nbsp;</th>
@@ -72,6 +71,7 @@
                 <th>出发时间&nbsp;&nbsp;</th>
                 <th>剩余座位</th>
               </tr>
+              <c:forEach items="${rosterDOList}" var="Roster">
               <tr>
                 <td>${Roster.id}</td>
                 <td>${Roster.busId}</td>
@@ -94,8 +94,8 @@
                 </form>
                 </div>
               </tr>
+              </c:forEach>
             </table>
-</c:forEach>
             <div>
               <div class="addUser"><input type="button" id="addRoster" value="增加用户"></div>
               <div class="form" id="form" style="display: none;">

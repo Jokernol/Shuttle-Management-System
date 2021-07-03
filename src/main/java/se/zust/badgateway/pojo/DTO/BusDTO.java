@@ -17,6 +17,4 @@ public class BusDTO {
     private String brand;
     private String insuranceDate;
     private String drivingLicense;
-    private Integer appointments;
-    private LocalDateTime registerTime;
 }

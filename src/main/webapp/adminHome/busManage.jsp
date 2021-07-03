@@ -44,10 +44,10 @@
   <div class="row">
     <div class="col-sm-3 col-md-2 sidebar">
       <ul class="nav nav-sidebar">
-        <li><a href="adminHome.jsp">用户信息汇总</a></li>
+        <li><a href="/adminHome/adminHome.jsp">用户信息汇总</a></li>
         <li class="active"><a href="#">车辆信息汇总</a></li>
-        <li><a href="rosterManage.jsp">排班信息汇总</a></li>
-        <li><a href="driverManage.jsp">驾驶员信息汇总</a></li>
+        <li><a href="/adminHome/rosterManage.jsp">排班信息汇总</a></li>
+        <li><a href="/adminHome/driverManage.jsp">驾驶员信息汇总</a></li>
       </ul>
     </div>
 
@@ -60,7 +60,6 @@
 
           <div id="data5" style="float:left;margin-left: 20px;">
             <div style="font-size:18px;margin-left:155px;">车辆信息</div>
-<c:forEach items="${busDOList}" var="BusDO">
             <table>
               <tr>
                 <th>序号&nbsp;&nbsp;</th>
@@ -70,6 +69,7 @@
                 <th>行驶证&nbsp;&nbsp;</th>
                 <th>注册时间&nbsp;&nbsp;</th>
               </tr>
+              <c:forEach items="${busDOList}" var="BusDO">
               <tr>
                 <td>${BusDO.id}&nbsp;&nbsp;</td>
                 <td>${BusDO.brand}&nbsp;&nbsp;</td>
@@ -90,15 +90,15 @@
                 </form>
                 </td>
               </tr>
+              </c:forEach>
             </table>
-</c:forEach>
             <div class="addUser"><input type="button" id="addBus" value="增加班车"></div>
             <div class="form" id="form" style="display: none;">
-              <form action="buses/post" method="post">
-                品牌:<input type="text" name="name" size="7">&nbsp;
-                座位数:<input type="text" name="password" size="7">&nbsp;
-                保险时间:<input type="text" name="group" size="7">&nbsp;
-                行驶证:<input type="text" name="telephone" size="7">&nbsp;
+              <form action="${pageContext.request.contextPath}/buses/post" method="post">
+                品牌:<input type="text" name="seat" size="7">&nbsp;
+                座位数:<input type="text" name="brand" size="7">&nbsp;
+                保险时间:<input type="text" name="insuranceDate" size="7">&nbsp;
+                行驶证:<input type="text" name="drivingLicense" size="7">&nbsp;
                 <input type="submit" value="增加">
                 <br/>
               </form>

@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
     <meta charset="utf-8">
@@ -43,9 +44,9 @@
   <div class="row">
     <div class="col-sm-3 col-md-2 sidebar">
       <ul class="nav nav-sidebar">
-        <li><a href="adminHome.jsp">用户信息汇总</a></li>
-        <li><a href="busManage.jsp">车辆信息汇总</a></li>
-        <li><a href="rosterManage.jsp">排班信息汇总</a></li>
+        <li><a href="/adminHome/adminHome.jsp">用户信息汇总</a></li>
+        <li><a href="/adminHome/busManage.jsp">车辆信息汇总</a></li>
+        <li><a href="/adminHome/rosterManage.jsp">排班信息汇总</a></li>
         <li class="active"><a href="#">驾驶员信息汇总</a></li>
       </ul>
     </div>
@@ -59,7 +60,6 @@
 
           <div id="data5" style="float:left;margin-left: 20px;">
             <div style="font-size:18px;margin-left:155px;">驾驶员信息</div>
-<c:forEach items="${driverDOList}" var="Driver">
             <table>
               <tr>
                 <th>序号&nbsp;&nbsp;</th>
@@ -69,6 +69,7 @@
                 <th>电话&nbsp;&nbsp;</th>
                 <th>驾驶经验&nbsp;&nbsp;</th>
               </tr>
+              <c:forEach items="${driverDOList}" var="Driver">
               <tr>
                 <td>${Driver.id}&nbsp;&nbsp;</td>
                 <td>${Driver.age}&nbsp;&nbsp;</td>
@@ -90,8 +91,8 @@
                   </form>
                 </div>
               </tr>
+              </c:forEach>
             </table>
-</c:forEach>
             <div class="addUser"><input type="button" id="addDriver" value="增加驾驶员"></div>
             <div class="form" id="form" style="display: none;">
               <form action="${pageContext.request.contextPath}/drivers/post">

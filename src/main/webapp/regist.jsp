@@ -69,7 +69,7 @@
     var identity=document.getElementById("identity").value;
     var telephone=document.getElementById("telephone").value;
     var xhr_2=new XMLHttpRequest();
-    var url="/users/post?"+"username="+username+"&password="+password+"&identity="+identity+"&telephone="+telephone;
+    var url="/users/register?"+"username="+username+"&password="+password+"&identity="+identity+"&telephone="+telephone;
     window.location.href=url;
 
   };

@@ -59,7 +59,6 @@
         <div class="table table-striped">
             <div id="data5" style="float:left;margin-left: 20px;">
               <div style="font-size:18px;margin-left:155px;">排班信息</div>
-              <c:forEach items="rosterDOList" var="Roster">
                 <table>
                   <tr>
                     <th>序号&nbsp;&nbsp;</th>
@@ -70,18 +69,19 @@
                     <th>出发时间&nbsp;&nbsp;</th>
                     <th>剩余座位</th>
                   </tr>
-                  <tr>
-                    <td>${Roster.id}</td>
-                    <td>${Roster.busId}</td>
-                    <td>${Roster.driverId}</td>
-                    <td>${Roster.origin}</td>
-                    <td>${Roster.destination}</td>
-                    <td>${Roster.departureTime}</td>
-                    <td>${Roster.rest}</td>
-                  <td><a name="appointment" id="appointment" href="">预约</a>&nbsp;&nbsp;&nbsp;&nbsp;</td>
-                </tr>
+                  <c:forEach items="${applicationScope.rosterDOList}" var="Roster">
+                    <tr>
+                      <td>${Roster.id}</td>
+                      <td>${Roster.busId}</td>
+                      <td>${Roster.driverId}</td>
+                      <td>${Roster.origin}</td>
+                      <td>${Roster.destination}</td>
+                      <td>${Roster.departureTime}</td>
+                      <td>${Roster.rest}</td>
+                      <td><a name="appointment" id="appointment" href="">预约</a>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                    </tr>
+                  </c:forEach>
               </table>
-              </c:forEach>
             </div>
         </div>
       </div>

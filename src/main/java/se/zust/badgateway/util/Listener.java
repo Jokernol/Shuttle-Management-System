@@ -1,7 +1,6 @@
 package se.zust.badgateway.util;
     import se.zust.badgateway.pojo.DO.StationDO;
-    import se.zust.badgateway.service.RosterService;
-    import se.zust.badgateway.service.StationService;
+    import se.zust.badgateway.service.*;
 
     import javax.servlet.ServletContextEvent;
     import javax.servlet.ServletContextListener;
@@ -18,11 +17,13 @@ public class Listener implements ServletContextListener {
     @Override
     public void contextInitialized(ServletContextEvent servletContextEvent) {
 
-
+        servletContextEvent.getServletContext().setAttribute("userDOList", UserService.getInstance().listUser());
+        servletContextEvent.getServletContext().setAttribute("busDOList", BusService.getInstance().listBus());
+        servletContextEvent.getServletContext().setAttribute("driverDOList", DriverService.getInstance().listDriver());
         servletContextEvent.getServletContext().setAttribute("stationList", StationService.getInstance().allStation());
         System.out.print("map坐标初始化");
 
-        servletContextEvent.getServletContext().setAttribute("rosterList",RosterService.getInstance().listRoster());
+        servletContextEvent.getServletContext().setAttribute("rosterDOList",RosterService.getInstance().listRoster());
         System.out.print("预约列表初始化");
 
     }

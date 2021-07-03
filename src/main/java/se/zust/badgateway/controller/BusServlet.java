@@ -4,8 +4,10 @@ import se.zust.badgateway.controller.base.BaseServlet;
 import se.zust.badgateway.pojo.DO.BusDO;
 import se.zust.badgateway.pojo.DTO.BusDTO;
 import se.zust.badgateway.service.BusService;
+import se.zust.badgateway.service.UserService;
 import se.zust.badgateway.util.BeanUtils;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -26,11 +28,13 @@ public class BusServlet extends BaseServlet {
 
         if (BusService.getInstance().insertBus(busDTO)) {
             req.setAttribute("info", "success");
+            ServletContext servletContext = req.getServletContext();
+            servletContext.setAttribute("busDOList", BusService.getInstance().listBus());
         } else {
             req.setAttribute("info", "error");
         }
 
-        req.getRequestDispatcher("/busManage.jsp").forward(req, resp);
+        req.getRequestDispatcher("/adminHome/busManage.jsp").forward(req, resp);
     }
 
     /**
@@ -41,9 +45,12 @@ public class BusServlet extends BaseServlet {
 
         BusService.getInstance().deleteBus(id);
 
+        ServletContext servletContext = req.getServletContext();
+        servletContext.setAttribute("busDOList", BusService.getInstance().listBus());
+
         req.setAttribute("info", "success");
 
-        req.getRequestDispatcher("/index.jsp").forward(req, resp);
+        req.getRequestDispatcher("/adminHome/busManage.jsp").forward(req, resp);
     }
 
     /**
@@ -54,11 +61,13 @@ public class BusServlet extends BaseServlet {
 
         if (BusService.getInstance().updateBus(busDO)) {
             req.setAttribute("info", "success");
+            ServletContext servletContext = req.getServletContext();
+            servletContext.setAttribute("busDOList", BusService.getInstance().listBus());
         } else {
             req.setAttribute("info", "error");
         }
 
-        req.getRequestDispatcher("/index.jsp").forward(req, resp);
+        req.getRequestDispatcher("/adminHome/busManage.jsp").forward(req, resp);
     }
 
     /**
@@ -69,6 +78,6 @@ public class BusServlet extends BaseServlet {
 
         req.setAttribute("busDOList", busDOList);
 
-        req.getRequestDispatcher("/index.jsp").forward(req, resp);
+        req.getRequestDispatcher("/adminHome/busManage.jsp").forward(req, resp);
     }
 }

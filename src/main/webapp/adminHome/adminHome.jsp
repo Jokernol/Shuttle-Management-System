@@ -46,9 +46,9 @@
     <div class="col-sm-3 col-md-2 sidebar">
       <ul class="nav nav-sidebar">
         <li class="active"><a href="#">用户信息汇总</a></li>
-        <li><a href="busManage.jsp">车辆信息汇总</a></li>
-        <li><a href="rosterManage.jsp">排班信息汇总</a></li>
-        <li><a href="driverManage.jsp">驾驶员信息汇总</a></li>
+        <li><a href="/adminHome/busManage.jsp">车辆信息汇总</a></li>
+        <li><a href="/adminHome/rosterManage.jsp">排班信息汇总</a></li>
+        <li><a href="/adminHome/driverManage.jsp">驾驶员信息汇总</a></li>
       </ul>
     </div>
 
@@ -68,22 +68,22 @@
                   <th>组别&nbsp;&nbsp;</th>
                   <th>电话&nbsp;&nbsp;</th>
                 </tr>
-<c:forEach items="${userDOList}" var="UserDO">
+<c:forEach items="${applicationScope.userDOList}" var="UserDO">
                 <tr>
                   <td>${UserDO.id}&nbsp;&nbsp;</td>
                   <td>${UserDO.username}&nbsp;&nbsp;</td>
                   <td>${UserDO.password}&nbsp;&nbsp;</td>
-                  <td>${UserDO.group}&nbsp;&nbsp;</td>
+                  <td>${UserDO.identity}&nbsp;&nbsp;</td>
                   <td>${UserDO.telephone}&nbsp;&nbsp;</td>
-                  <td><a href="${pageContext.request.contextPath}/users/delete">删除&nbsp;&nbsp;</a></td>
-                  <td><a name="update" id="update">更新</a>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                  <td><a href="${pageContext.request.contextPath}/users/delete?id=${UserDO.id}">删除&nbsp;&nbsp;</a></td>
+                  <td><a name="update" id="update" ontoggle="">更新</a>&nbsp;&nbsp;&nbsp;&nbsp;</td>
                   <td><form action="${pageContext.request.contextPath}/users/put" id="update-form" style="display: none">
                     <input type="text" name="id" value="${UserDO.id}" style="display: none">
                     姓名:<input type="text" value="${UserDO.username}" name="username" size="1">&nbsp;
                     密码:<input type="text" value="${UserDO.password}" name="password" size="1">&nbsp;
-                    组别:<input type="text" value="${UserDO.group}" name="group" size="1">&nbsp;
+                    组别:<input type="text" value="${UserDO.identity}" name="group" size="1">&nbsp;
                     电话:<input type="text" value="${UserDO.telephone}" name="telephone" size="1">&nbsp;
-                    <input type="submit" value="增加">
+                    <input type="submit" value="修改">
                   </form>
                   </td>
                 </tr>
@@ -91,10 +91,10 @@
               </table>
               <div class="addUser"><input type="button" id="addUser" value="增加用户"></div>
               <div class="form" id="form" style="display: none;">
-                <form action="users/post" method="post">
-                  姓名:<input type="text" name="name" size="7">&nbsp;
+                <form action="${pageContext.request.contextPath}/users/post" method="post">
+                  姓名:<input type="text" name="username" size="7">&nbsp;
                   密码:<input type="text" name="password" size="7">&nbsp;
-                  组别:<input type="text" name="group" size="7">&nbsp;
+                  组别:<input type="text" name="identity" size="7">&nbsp;
                   电话:<input type="text" name="telephone" size="7">&nbsp;
                   <input type="submit" value="增加">
                   <br/>

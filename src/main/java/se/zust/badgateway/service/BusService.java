@@ -7,6 +7,7 @@ import se.zust.badgateway.pojo.DTO.BusDTO;
 import se.zust.badgateway.util.MybatisUtils;
 import se.zust.badgateway.util.ObjectUtils;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -39,14 +40,14 @@ public class BusService {
             BusMapper mapper = sqlSession.getMapper(BusMapper.class);
 
             String id = UUID.randomUUID().toString().replace("-", "");
+            LocalDateTime localDateTime = LocalDateTime.now();
             BusDO busDO = new BusDO(
                 id,
                 busDTO.getSeat(),
                 busDTO.getBrand(),
                 busDTO.getInsuranceDate(),
                 busDTO.getDrivingLicense(),
-                busDTO.getAppointments(),
-                busDTO.getRegisterTime()
+                localDateTime
             );
             //插入数据库
             mapper.insertBus(busDO);
