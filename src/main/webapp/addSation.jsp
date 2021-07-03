@@ -71,8 +71,8 @@
     position: new AMap.LngLat(e.lnglat.getLng(), e.lnglat.getLat())});
 
     map.add(marker);
-    document.getElementById("lngX").value = e.lnglat.getLng();
-    document.getElementById("latY").value = e.lnglat.getLat();
+    document.getElementById("x").value = e.lnglat.getLng();
+    document.getElementById("y").value = e.lnglat.getLat();
     return e.lnglat.getLng(), e.lnglat.getLat();
 
   };
@@ -80,8 +80,8 @@
   map.on('click', clickHandler);
 
   function isNull(){
-    var  x =  document.getElementById("lngX").value;
-    var  y =  document.getElementById("latY").value;
+    var  x =  document.getElementById("x").value;
+    var  y =  document.getElementById("y").value;
     if (x===""||y===""){
       alert("请选择地点");
       return false;
@@ -91,9 +91,9 @@
 </script>
 <form action="${pageContext.request.contextPath}/station.do" method="post">
   车站名:
-  <input name="positionName" >
-  <input type="text" id="lngX" name="lngX" value=""  hidden/>
-  <input type="text" id="latY" name="latY" value=""  hidden/>
+  <input name="position" >
+  <input type="text" id="x" name="x" value=""  hidden/>
+  <input type="text" id="y" name="y" value=""  hidden/>
   <input onclick="return isNull()" value="提交" type="submit" >
 </form>
 </body>

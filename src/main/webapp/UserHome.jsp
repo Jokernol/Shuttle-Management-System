@@ -7,7 +7,6 @@
   To change this template use File | Settings | File Templates.
 --%><!DOCTYPE html>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="C" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
 
@@ -91,38 +90,21 @@
   })
   map.add(temp);
   var markers = [];
-      <c:forEach items="${sessionScope.stationList}" var = "item" varStatus="station" >
-
-
-  var temp1 = new AMap.Marker({
-    position: new AMap.LngLat('${item.lngX}','${item.latY}'), // 经纬度对象，也可以是经纬度构成的一维数组[116.39, 39.9]
-    title: '${item.positionName}',
+      <c:forEach items="${applicationScope.stationList}" var = "item" varStatus="station" >
+    alert(${item.x})
+    var temp1 = new AMap.Marker({
+    position: new AMap.LngLat('${item.x}','${item.y}'), // 经纬度对象，也可以是经纬度构成的一维数组[116.39, 39.9]
+    title: '${item.position}',
     map: map,
     clickable: true
   })
   map.add(temp1);
   temp1.setLabel({
 
-    content: "<div class='info'>${item.positionName}</div>", //设置文本标注内容
+    content: "${item.position}", //设置文本标注内容
     direction: 'top' //设置文本标注方位
   });
       </c:forEach>
-
-  AMap.plugin('AMap.Driving', function() {
-    var driving = new AMap.Driving({
-      // 驾车路线规划策略，AMap.DrivingPolicy.LEAST_TIME是最快捷模式
-      policy: AMap.DrivingPolicy.LEAST_TIME
-    })
-
-    var startLngLat = [120.026, 30.215042]
-    var endLngLat = [120.0733281, 30.243719]
-
-    driving.search(startLngLat, endLngLat, function (status, result) {
-      // 未出错时，result即是对应的路线规划方案
-    })
-  })
-
-
 
   // var infoWindow = new AMap.InfoWindow({ //创建信息窗体
   //   isCustom: true,  //使用自定义窗体

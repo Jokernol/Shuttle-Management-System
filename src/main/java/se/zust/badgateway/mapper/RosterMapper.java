@@ -23,4 +23,7 @@ public interface RosterMapper {
 
     @Update("update roster set bus_id = #{busId}, driver_id = #{driverId}, origin = #{origin}, destination = #{destination}, departure_time = #{departureTime}, rest = #{rest} where id = #{id}")
     void updateRoster(RosterDO rosterDO);
+
+    @Delete("delete from bus where userId = #{userId}")
+    void deleteBusById(String id);
 }
