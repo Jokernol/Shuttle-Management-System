@@ -10,7 +10,7 @@ import se.zust.badgateway.pojo.DO.UserDO;
 import java.util.List;
 
 /**
- * @author 韩成峰
+ * @author zhu
  */
 public interface DriverMapper {
     @Select("select * from driver")

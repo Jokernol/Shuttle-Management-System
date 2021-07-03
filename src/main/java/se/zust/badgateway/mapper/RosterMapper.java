@@ -8,6 +8,9 @@ import se.zust.badgateway.pojo.DO.RosterDO;
 
 import java.util.List;
 
+/**
+ * @author zhu
+ */
 public interface RosterMapper {
     @Select("select * from roster where id = #{id}")
     RosterDO getRosterById(String id);

@@ -8,6 +8,10 @@ import se.zust.badgateway.pojo.DO.BusDO;
 
 import java.util.List;
 
+
+/**
+ * @author zhu
+ */
 public interface BusMapper {
     @Select("select * from bus where id = #{id}")
     BusDO getBusById(String id);
