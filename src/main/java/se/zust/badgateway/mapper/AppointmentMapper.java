@@ -18,7 +18,7 @@ public interface AppointmentMapper {
     /**
      * 获得车站点的排班
      */
-    @Select("select * from station where roster_Id = #{position}")
+    @Select("select * from roster where origin = #{position}")
     List<RosterDO> RosterOfAdder(String position);
 
     @Insert("insert driver values (#{userId}, #{rosterId})")

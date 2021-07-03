@@ -8,12 +8,27 @@ import se.zust.badgateway.pojo.DO.RosterDO;
 import se.zust.badgateway.pojo.DO.UserDO;
 import se.zust.badgateway.util.MybatisUtils;
 
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
  * @author 王怀瑾
  */
 public class AppointmentService {
+
+    private AppointmentService(){}
+
+    private static class AppointmentServiceInnerClass{
+        private static final AppointmentService INSTANCE = new AppointmentService();
+    }
+
+    public static AppointmentService getInstance() {
+        return AppointmentService.AppointmentServiceInnerClass.INSTANCE;
+    }
+
     /**
      * 获得某一车站的班次
      */
@@ -86,4 +101,24 @@ public class AppointmentService {
         AppointmentMapper mapper = sqlSession.getMapper(AppointmentMapper.class);
         return mapper.AppointmentOfUser(userId);
     }
+
+    /**
+     *更新列表
+     */
+    public List<AppointmentDO> AppointmentDoList(){
+        SqlSession sqlSession = MybatisUtils.getSqlSession();
+
+        AppointmentMapper mapper1 = sqlSession.getMapper(AppointmentMapper.class);
+
+        List<AppointmentDO> s =  mapper1.allAppointment();
+
+        sqlSession.commit();
+
+        sqlSession.close();
+
+        return s;
+
+    }
+
+
 }

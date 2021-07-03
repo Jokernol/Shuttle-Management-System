@@ -6,6 +6,7 @@ import se.zust.badgateway.mapper.AppointmentMapper;
 
 import se.zust.badgateway.pojo.DO.AppointmentDO;
 
+import se.zust.badgateway.pojo.DO.RosterDO;
 import se.zust.badgateway.pojo.DO.UserDO;
 import se.zust.badgateway.service.AppointmentService;
 import se.zust.badgateway.util.MybatisUtils;
@@ -18,6 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.List;
 
 
 /**
@@ -25,21 +27,23 @@ import java.io.IOException;
  */
 @WebServlet("appointments/*")
 public class AppointmentServlet extends BaseServlet {
-    AppointmentService appointmentService = new AppointmentService();
-
     /**
-     * 用户查看车站列表
+     * 用户查看排班列表
      */
     protected void get(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String position = req.getParameter("position");
 
-        updateAppointmentOfUser(req,resp);
+        List<RosterDO> rosterListOfAddress = AppointmentService.getInstance().getRoster(position);
 
-        req.getRequestDispatcher("UserHome.jsp").forward(req,resp);
+        HttpSession session = req.getSession();
+
+        session.setAttribute("rosterListOfAddress",rosterListOfAddress);
+
+        req.getRequestDispatcher("userHome.jsp").forward(req,resp);
     }
 
     /**
-     *用户添加排班
+     *用户添加预约
      */
     protected void post(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String info;
@@ -49,7 +53,7 @@ public class AppointmentServlet extends BaseServlet {
 
         UserDO user =(UserDO) session.getAttribute("UserDO");
 
-        int i = appointmentService.addAppointment(user,rosterId);
+        int i = AppointmentService.getInstance().addAppointment(user,rosterId);
 
         switch (i){
             case 0:
@@ -69,47 +73,32 @@ public class AppointmentServlet extends BaseServlet {
                 req.setAttribute("info",info);
                 break;
         }
-        updateAppointment(req,resp);
 
-        updateAppointmentOfUser(req,resp);
+        List<AppointmentDO> appointmentList = AppointmentService.getInstance().appointmentOfUser(user.getId());
+
+        session.setAttribute("appointmentList",appointmentList);
 
         req.getRequestDispatcher("userHome.jsp").forward(req,resp);
+
+
 
     }
 
     /**
      *用户删除排班
      */
-    protected void delete(HttpServletRequest req,HttpServletResponse resp){
+    protected void delete(HttpServletRequest req,HttpServletResponse resp) throws ServletException, IOException {
 
         AppointmentDO appointmentDO = (AppointmentDO)req.getAttribute("appointment");
 
-        appointmentService.deleteAppointment(appointmentDO);
+        AppointmentService.getInstance().deleteAppointment(appointmentDO);
 
-        updateAppointmentOfUser(req,resp);
-
-        updateAppointment(req,resp);
-
-    }
-
-    /**
-     * 更新预约列表.每次对预约表更新都使用
-     */
-    protected void updateAppointment(HttpServletRequest req,HttpServletResponse resp){
-        SqlSession sqlSession = MybatisUtils.getSqlSession();
-
-        AppointmentMapper mapper1 = sqlSession.getMapper(AppointmentMapper.class);
-
-        ServletContext servletContext = req.getServletContext();
-
-        servletContext.setAttribute("allAppointment", mapper1.allAppointment());
-    }
-
-    protected void updateAppointmentOfUser(HttpServletRequest req,HttpServletResponse resp){
         HttpSession session = req.getSession();
 
-        UserDO user =(UserDO)session.getAttribute("user");
+        session.setAttribute("appointmentList",AppointmentService.getInstance().appointmentOfUser(appointmentDO.getUserId()));
 
-        session.setAttribute("appointmentOfUser",appointmentService.appointmentOfUser(user.getId()));
+        req.getRequestDispatcher("userHome.jsp").forward(req,resp);
+
     }
+
 }

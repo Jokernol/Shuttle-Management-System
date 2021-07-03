@@ -12,25 +12,65 @@ import java.util.UUID;
  * @author 王怀瑾
  */
 public class RosterService {
+
+    private RosterService(){}
+
+    private static class RosterServiceInnerClass{
+        private static final RosterService INSTANCE = new RosterService();
+    }
+
+    public static RosterService getInstance() {
+        return RosterService.RosterServiceInnerClass.INSTANCE;
+    }
+
+
+    public List<RosterDO> listRoster(){
+        SqlSession sqlSession = MybatisUtils.getSqlSession();
+
+        RosterMapper mapper = sqlSession.getMapper(RosterMapper.class);
+
+        List<RosterDO> rosterList = mapper.listRoster();
+
+        sqlSession.commit();
+
+        sqlSession.close();
+
+        return rosterList;
+    }
+
     public List<RosterDO> addRoster(RosterDO rosterDO){
         String id = UUID.randomUUID().toString().replace("-","");
+
         rosterDO.setBusId(id);
+
         SqlSession sqlSession = MybatisUtils.getSqlSession();
+
         RosterMapper mapper = sqlSession.getMapper(RosterMapper.class);
+
         mapper.insertRoster(rosterDO);
+
         List<RosterDO> rosterList = mapper.listRoster();
+
         sqlSession.commit();
+
         sqlSession.close();
+
         return rosterList;
     }
 
     public List<RosterDO> deleteRoster(String id){
         SqlSession sqlSession = MybatisUtils.getSqlSession();
+
         RosterMapper mapper = sqlSession.getMapper(RosterMapper.class);
+
         mapper.deleteRosterById(id);
+
         List<RosterDO> rosterList = mapper.listRoster();
+
         sqlSession.commit();
+
         sqlSession.close();
+
         return rosterList;
     }
 }

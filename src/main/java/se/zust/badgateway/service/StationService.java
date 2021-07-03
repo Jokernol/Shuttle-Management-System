@@ -12,6 +12,17 @@ import java.util.List;
  * @author 王怀瑾
  */
 public class StationService {
+
+    private StationService(){}
+
+    private static class StationServiceInnerClass{
+        private static final StationService INSTANCE = new StationService();
+    }
+
+    public static StationService getInstance() {
+        return StationService.StationServiceInnerClass.INSTANCE;
+    }
+
     public boolean addStation(StationDO stationPo) {
         SqlSession sqlSession = MybatisUtils.getSqlSession();
         StationMapper mapper = sqlSession.getMapper(StationMapper.class);
