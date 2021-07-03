@@ -5,12 +5,16 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import se.zust.badgateway.pojo.DO.RosterDO;
+import se.zust.badgateway.pojo.DTO.RosterDTO;
 
 import java.util.List;
 
 public interface RosterMapper {
     @Select("select * from roster where id = #{id}")
     RosterDO getRosterById(String id);
+
+    @Select("select * from roster where bus_id=#{busId} and driver_id =#{driverId} and origin=#{origin}")
+    RosterDO getRoster(String busId,String driverId,String origin);
 
     @Select("select * from roster")
     List<RosterDO> listRoster();

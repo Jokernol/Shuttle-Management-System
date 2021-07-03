@@ -35,6 +35,8 @@ public class AppointmentServlet extends BaseServlet {
 
         List<RosterDO> rosterListOfAddress = AppointmentService.getInstance().getRoster(position);
 
+        System.out.println(rosterListOfAddress);
+
         HttpSession session = req.getSession();
 
         session.setAttribute("rosterListOfAddress",rosterListOfAddress);
@@ -51,8 +53,9 @@ public class AppointmentServlet extends BaseServlet {
 
         HttpSession session = req.getSession();
 
-        UserDO user =(UserDO) session.getAttribute("UserDO");
-
+//        UserDO user =(UserDO) session.getAttribute("UserDO");
+        UserDO user = new UserDO();
+        user.setId("1");
         int i = AppointmentService.getInstance().addAppointment(user,rosterId);
 
         switch (i){
@@ -74,14 +77,13 @@ public class AppointmentServlet extends BaseServlet {
                 break;
         }
 
+        System.out.println(info);
+
         List<AppointmentDO> appointmentList = AppointmentService.getInstance().appointmentOfUser(user.getId());
 
         session.setAttribute("appointmentList",appointmentList);
 
-        req.getRequestDispatcher("userHome.jsp").forward(req,resp);
-
-
-
+        req.getRequestDispatcher("/userHome.jsp").forward(req,resp);
     }
 
     /**
@@ -89,15 +91,18 @@ public class AppointmentServlet extends BaseServlet {
      */
     protected void delete(HttpServletRequest req,HttpServletResponse resp) throws ServletException, IOException {
 
-        AppointmentDO appointmentDO = (AppointmentDO)req.getAttribute("appointment");
-
-        AppointmentService.getInstance().deleteAppointment(appointmentDO);
+        String rosterId = req.getParameter("rosterId");
 
         HttpSession session = req.getSession();
+//        UserDO user = (UserDO)session.getAttribute("user");
+        UserDO user = new UserDO();
+        user.setId("1");
+        AppointmentDO appointmentDO = new AppointmentDO(user.getId(),rosterId);
+        AppointmentService.getInstance().deleteAppointment(appointmentDO);
 
         session.setAttribute("appointmentList",AppointmentService.getInstance().appointmentOfUser(appointmentDO.getUserId()));
 
-        req.getRequestDispatcher("userHome.jsp").forward(req,resp);
+//        req.getRequestDispatcher("userHome.jsp").forward(req,resp);
 
     }
 

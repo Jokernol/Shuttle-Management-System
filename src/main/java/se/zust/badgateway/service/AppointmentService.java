@@ -58,11 +58,12 @@ public class AppointmentService {
 
         AppointmentDO appointmentDO = new AppointmentDO(userDO.getId(),rosterId);
         RosterDO rosterDO = mapper.getRosterById(rosterId);
+        System.out.println(rosterDO.toString());
         if (rosterDO.getRest()>=0){
             int i = rosterDO.getRest();
-
+            System.out.println(i);
             List<AppointmentDO> appointmentList = mapper1.allAppointment();
-
+            System.out.println(appointmentList.toString());
             for (AppointmentDO it:appointmentList){
                 if (appointmentDO.toString().equals(it.toString())){
                     return 0;
@@ -70,7 +71,11 @@ public class AppointmentService {
             }
 
             mapper1.InsertAppointment(appointmentDO);
-            mapper1.increaseRest(--i,rosterId);
+            mapper1.increaseRest(--i, rosterId);
+
+            sqlSession.commit();
+            sqlSession.close();
+
             return 1;
         }
         sqlSession.commit();
@@ -84,13 +89,17 @@ public class AppointmentService {
     public void deleteAppointment(AppointmentDO appointmentDO){
         SqlSession sqlSession = MybatisUtils.getSqlSession();
         AppointmentMapper mapper = sqlSession.getMapper(AppointmentMapper.class);
-        mapper.deleteRosterById(appointmentDO);
+        mapper.deleteRosterById(appointmentDO.getUserId(),appointmentDO.getRosterId());
 
         RosterMapper mapper1 = sqlSession.getMapper(RosterMapper.class);
         RosterDO rosterDO = mapper1.getRosterById(appointmentDO.getRosterId());
         int i = rosterDO.getRest();
 
-        mapper.lessRoster(--i, appointmentDO.getRosterId());
+        mapper.increaseRest(++i, appointmentDO.getRosterId());
+
+        sqlSession.commit();
+
+        sqlSession.close();
     }
 
     /**
@@ -99,7 +108,14 @@ public class AppointmentService {
     public List<AppointmentDO> appointmentOfUser(String userId){
         SqlSession sqlSession = MybatisUtils.getSqlSession();
         AppointmentMapper mapper = sqlSession.getMapper(AppointmentMapper.class);
-        return mapper.AppointmentOfUser(userId);
+        List<AppointmentDO> s =  mapper.AppointmentOfUser(userId);
+
+        sqlSession.commit();
+
+        sqlSession.close();
+        return s;
+
+
     }
 
     /**

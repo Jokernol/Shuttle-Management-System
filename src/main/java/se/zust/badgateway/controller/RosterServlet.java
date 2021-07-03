@@ -2,6 +2,7 @@ package se.zust.badgateway.controller;
 
 import se.zust.badgateway.controller.base.BaseServlet;
 import se.zust.badgateway.pojo.DO.RosterDO;
+import se.zust.badgateway.pojo.DTO.RosterDTO;
 import se.zust.badgateway.service.RosterService;
 import se.zust.badgateway.util.BeanUtils;
 
@@ -19,20 +20,37 @@ import java.util.List;
 @WebServlet("rosters/*")
 public class RosterServlet extends BaseServlet {
 
-    protected void get(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doGet(req, resp);
-    }
-
     protected void post(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        RosterDO rosterDO = BeanUtils.Request2Bean(req, RosterDO.class);
+        RosterDTO rosterDTO = BeanUtils.Request2Bean(req,RosterDTO.class);
+        int i = RosterService.getInstance().addRoster(rosterDTO);
 
-        List<RosterDO> rosterList = RosterService.getInstance().addRoster(rosterDO);
+        System.out.println("ssss");
+        String info;
+
+        switch (i){
+            case 0 :
+                info= "输入不能为空";
+                break;
+            case 1 :
+                info="班次已经存在";
+                break;
+            case 2:
+                info="添加成功";
+                break;
+            default:
+                info="error";
+                break;
+        }
+        System.out.println(info);
+        req.setAttribute("info",info);
+
+        List<RosterDO> rosterList = RosterService.getInstance().listRoster();
 
         ServletContext servletContext = req.getServletContext();
 
         servletContext.setAttribute("rosterList", rosterList);
 
-        req.getRequestDispatcher("adminHome.jsp").forward(req,resp);
+//        req.getRequestDispatcher("adminHome.jsp").forward(req,resp);
     }
 
     protected void delete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -44,6 +62,6 @@ public class RosterServlet extends BaseServlet {
 
         servletContext.setAttribute("rosterList", rosterList);
 
-        req.getRequestDispatcher("adminHome.jsp").forward(req,resp);
+//        req.getRequestDispatcher("adminHome.jsp").forward(req,resp);
     }
 }

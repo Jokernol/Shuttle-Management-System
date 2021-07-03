@@ -23,6 +23,7 @@ public class BaseServlet extends HttpServlet {
             method.setAccessible(true);
             method.invoke(this, req, resp);
         } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+            System.out.print("方法执行出错");
             e.printStackTrace();
         }
     }
