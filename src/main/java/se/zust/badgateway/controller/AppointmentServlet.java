@@ -21,6 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.List;
 
 
@@ -44,6 +45,7 @@ public class AppointmentServlet extends BaseServlet {
 
         session.setAttribute("rosterList",rosterListOfAddress);
 
+        resp.sendRedirect("/userHome/stationOfRoster.jsp");
 //        req.getRequestDispatcher("userHome.jsp").forward(req,resp);
     }
 
@@ -87,7 +89,9 @@ public class AppointmentServlet extends BaseServlet {
 
         session.setAttribute("appointmentOfUser", RosterService.getInstance().getRosterOfUser(user.getId()));
 
-        req.getRequestDispatcher("/userHome/personalCenter.jsp").forward(req,resp);
+        resp.sendRedirect("/userHome/personalCenter.jsp?info="+URLEncoder.encode(info, "utf-8"));
+
+//        req.getRequestDispatcher("/userHome/personalCenter.jsp").forward(req,resp);
     }
 
     /**
@@ -110,13 +114,15 @@ public class AppointmentServlet extends BaseServlet {
         AppointmentService.getInstance().deleteAppointment(appointmentDO);
 
         String info ="退订成功";
+
         req.setAttribute("info",info);
 
         servletContext.setAttribute("rosterDOList",RosterService.getInstance().listRoster());
 
         session.setAttribute("appointmentOfUser", RosterService.getInstance().getRosterOfUser(user.getId()));
 
-        req.getRequestDispatcher("/userHome/personalCenter.jsp").forward(req,resp);
-    }
+//        req.getRequestDispatcher("/userHome/personalCenter.jsp").forward(req,resp);
+
+        resp.sendRedirect("/userHome/personalCenter.jsp?info="+URLEncoder.encode(info, "utf-8"));    }
 
 }

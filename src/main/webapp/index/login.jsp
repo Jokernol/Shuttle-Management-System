@@ -36,7 +36,7 @@
             </div>
         </div>
       <div class="action">
-        <div class="btn" id="login" onclick="login()">login</div>
+        <div class="btn" id="login" onclick="login()" >login</div>
         <div class="btn" id="regist" onclick="regist()">regist</div>
       </div>
     </div>
@@ -54,20 +54,29 @@
 </body>
 <script>
   window.onload=function (){
-    var str="${info}";
+    var str="${param.info}";
     if (str==="error"){
       alert("密码错误");
     }
   }
+
+
+
   function login(){
     var username=document.getElementById("username").value;
     var password=document.getElementById("password").value;
-    var xhr=new XMLHttpRequest();
-    var url="/sessions/post?"+"username="+username+"&password="+password;
-    window.location.href=url;
+
+    if (username===""||password===""){
+      alert("账号或密码不能为空");
+    }else {
+      var xhr=new XMLHttpRequest();
+      var url="/sessions/post?"+"username="+username+"&password="+password;
+      window.location.href=url;
+    }
+
   };
   function regist(){
-    window.location.href="/regist.jsp";
+    window.location.href="/index/regist.jsp";
   };
 
 </script>

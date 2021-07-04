@@ -58,7 +58,7 @@
 </body>
 <script>
   window.onload=function (){
-    var str="${info}";
+    var str="${param.info}";
     if (str==="error"){
       alert("用户名已存在");
     }
@@ -68,10 +68,13 @@
     var password=document.getElementById("password").value;
     var identity=document.getElementById("identity").value;
     var telephone=document.getElementById("telephone").value;
-    var xhr_2=new XMLHttpRequest();
-    var url="/users/register?"+"username="+username+"&password="+password+"&identity="+identity+"&telephone="+telephone;
-    window.location.href=url;
-
+    if(username===""||password===""||identity==""||telephone==""){
+      alert("注册信息不能为空");
+    }else{
+      var url="/users/register?"+"username="+username+"&password="+password+"&identity="+identity+"&telephone="+telephone;
+      window.location.href=url;
+    }
   };
+
 </script>
 </html>

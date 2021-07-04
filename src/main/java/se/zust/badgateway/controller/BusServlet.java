@@ -13,6 +13,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.List;
 
 /**
@@ -25,16 +26,19 @@ public class BusServlet extends BaseServlet {
      */
     protected void post(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         BusDTO busDTO = BeanUtils.Request2Bean(req, BusDTO.class);
-
+        String info ;
         if (BusService.getInstance().insertBus(busDTO)) {
-            req.setAttribute("info", "success");
+            info= "success";
             ServletContext servletContext = req.getServletContext();
             servletContext.setAttribute("busDOList", BusService.getInstance().listBus());
         } else {
-            req.setAttribute("info", "error");
+
+            info = "error";
         }
 
-        req.getRequestDispatcher("/adminHome/busManage.jsp").forward(req, resp);
+        resp.sendRedirect("/adminHome/busManage.jsp?info="+ URLEncoder.encode(info, "utf-8"));
+
+//        req.getRequestDispatcher("/adminHome/busManage.jsp").forward(req, resp);
     }
 
     /**
@@ -48,9 +52,11 @@ public class BusServlet extends BaseServlet {
         ServletContext servletContext = req.getServletContext();
         servletContext.setAttribute("busDOList", BusService.getInstance().listBus());
 
-        req.setAttribute("info", "success");
+        String info = "success";
 
-        req.getRequestDispatcher("/adminHome/busManage.jsp").forward(req, resp);
+//        req.getRequestDispatcher("/adminHome/busManage.jsp").forward(req, resp);
+        resp.sendRedirect("/adminHome/busManage.jsp?info="+ URLEncoder.encode(info, "utf-8"));
+
     }
 
     /**
@@ -59,16 +65,18 @@ public class BusServlet extends BaseServlet {
     protected void put(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         BusDO busDO = BeanUtils.Request2Bean(req, BusDO.class);
         System.out.println(busDO);
-/*********************/
+        String info ;
         if (BusService.getInstance().updateBus(busDO)) {
-            req.setAttribute("info", "success");
+            info = "success";
             ServletContext servletContext = req.getServletContext();
             servletContext.setAttribute("busDOList", BusService.getInstance().listBus());
         } else {
-            req.setAttribute("info", "error");
+
+            info = "error";
         }
 
-        req.getRequestDispatcher("/adminHome/busManage.jsp").forward(req, resp);
+//        req.getRequestDispatcher("/adminHome/busManage.jsp").forward(req, resp);
+        resp.sendRedirect("/adminHome/busManage.jsp?info="+ URLEncoder.encode(info, "utf-8"));
     }
 
     /**
@@ -79,6 +87,9 @@ public class BusServlet extends BaseServlet {
 
         req.setAttribute("busDOList", busDOList);
 
-        req.getRequestDispatcher("/adminHome/busManage.jsp").forward(req, resp);
+//        req.getRequestDispatcher("/adminHome/busManage.jsp").forward(req, resp);
+
+        resp.sendRedirect("/adminHome/busManage.jsp");
+
     }
 }

@@ -40,4 +40,14 @@ public class StationService {
         sqlSession.close();
         return S;
     }
+
+    public void deleteStation(String position){
+        SqlSession sqlSession = MybatisUtils.getSqlSession();
+        StationMapper mapper = sqlSession.getMapper(StationMapper.class);
+
+        mapper.deleteStation(position);
+
+        sqlSession.commit();
+        sqlSession.close();
+    }
 }

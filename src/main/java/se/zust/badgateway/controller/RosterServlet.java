@@ -13,6 +13,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.List;
 
 /**
@@ -50,7 +51,8 @@ public class RosterServlet extends BaseServlet {
         ServletContext servletContext = req.getServletContext();
 
         servletContext.setAttribute("rosterDOList", rosterList);
-        req.getRequestDispatcher("/adminHome/rosterManage.jsp").forward(req,resp);
+//        req.getRequestDispatcher("/adminHome/rosterManage.jsp").forward(req,resp);
+        resp.sendRedirect("/adminHome/rosterManage.jsp?info="+ URLEncoder.encode(info, "utf-8"));
     }
 
     protected void delete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -64,19 +66,25 @@ public class RosterServlet extends BaseServlet {
 
         servletContext.setAttribute("rosterDOList", rosterList);
 
-        req.getRequestDispatcher("/adminHome/rosterManage.jsp").forward(req,resp);
+//        req.getRequestDispatcher("/adminHome/rosterManage.jsp").forward(req,resp);
+        resp.sendRedirect("/adminHome/rosterManage.jsp");
     }
 
     protected void put(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         RosterDO rosterDO = BeanUtils.Request2Bean(req,RosterDO.class);
+        String info;
         if(RosterService.getInstance().updateRoster(rosterDO)) {
             ServletContext servletContext = req.getServletContext();
             servletContext.setAttribute("rosterDOList",RosterService.getInstance().listRoster());
-            req.setAttribute("info", "success");
+//            req.setAttribute("info", "success");
+            info = "success";
         } else {
-            req.setAttribute("info", "error");
+//            req.setAttribute("info", "error");
+            info = "error";
         }
 
-        req.getRequestDispatcher("/adminHome/rosterManage.jsp").forward(req, resp);
+//        req.getRequestDispatcher("/adminHome/rosterManage.jsp").forward(req, resp);
+
+        resp.sendRedirect("/adminHome/rosterManage.jsp?info="+ URLEncoder.encode(info, "utf-8"));
     }
 }

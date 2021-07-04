@@ -51,16 +51,16 @@
         <li><a href="/adminHome/busManage.jsp">车辆信息汇总</a></li>
         <li class="active"><a href="#">排班信息汇总</a></li>
         <li><a href="/adminHome/driverManage.jsp">驾驶员信息汇总</a></li>
-        <li><a href="/adminHome/addStation.jsp">添加地图</a></li>
+        <li><a href="/adminHome/mapManage.jsp">车站管理</a></li>
 
       </ul>
     </div>
 
-    <div id="my_bgc" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <div id="my_bgc" class="col-sm-9 col-sm-offset-3 col-md-10 col-lg-9 col-lg-offset-3 main">
       <div id="mysub-header">
         <h1 class="sub-header">排班汇总</h1>
       </div>
-      <div class="table-responsive">
+      <div >
         <div class="table table-striped">
 
           <div id="data5" style="float:left;margin-left: 20px;">
@@ -77,18 +77,18 @@
               </tr>
               <c:forEach items="${rosterDOList}" var="RosterDO">
               <tr>
-                <td>${RosterDO.id}</td>
-                <td>${RosterDO.busId}</td>
-                <td>${RosterDO.driverId}</td>
-                <td>${RosterDO.origin}</td>
-                <td>${RosterDO.destination}</td>
-                <td>${RosterDO.departureTime}</td>
-                <td>${RosterDO.rest}</td>
+                <td><input size="5px" style="border:none;outline:medium;" value=" ${RosterDO.id}" readonly>&nbsp;&nbsp;&nbsp;</td>
+                <td><input size="5px" style="border:none;outline:medium;" value=" ${RosterDO.busId}" readonly>&nbsp;&nbsp;&nbsp;</div></td>
+                <td><input size="5px" style="border:none;outline:medium;" value=" ${RosterDO.driverId}" readonly>&nbsp;&nbsp;&nbsp;</div></td>
+                <td>${RosterDO.origin}&nbsp;&nbsp;&nbsp;</td>
+                <td>${RosterDO.destination}&nbsp;&nbsp;&nbsp;</td>
+                <td>${RosterDO.departureTime}&nbsp;&nbsp;&nbsp;</td>
+                <td>${RosterDO.rest}&nbsp;&nbsp;&nbsp;</td>
                 <td><a href="${pageContext.request.contextPath}/rosters/delete?id=${RosterDO.id}">删除&nbsp;&nbsp;</a></td>
                 <td>
                     <a name="update" id="update" onclick="$(this).next().toggle()">更新</a>&nbsp;&nbsp;&nbsp;&nbsp;
                     <form action="${pageContext.request.contextPath}/rosters/put" style="display: none">
-                            <input type="text" name="id" value="${RosterDO.id}" style="display:none;">
+                            <input  type="text" name="id" value="${RosterDO.id}" style="display:none;">
                       车序号：<input type="text" name="busId" size="1" value="${RosterDO.busId}">
                       驾驶员编号:<input type="text" name="driverId" size="1" value="${RosterDO.driverId}">&nbsp;&nbsp;
                       出发地：<input type="text" name="origin" size="1" value="${RosterDO.origin}">&nbsp;
@@ -105,12 +105,21 @@
               <div class="addUser"><input type="button" id="addRoster" value="增加排班"></div>
               <div class="form" id="form" style="display: none;">
                 <form action="/rosters/post">
-                  车序号：<input type="text" name="busId" size="1">
-                  驾驶员编号:<input type="text" name="driverId" size="1" >&nbsp;&nbsp;
-                  出发地：<input type="text" name="origin" size="1" >&nbsp;
-                  目的地：<input type="text" name="destination" size="1" >&nbsp;&nbsp;
-                  出发时间:<input type="text" name="departureTime" size="1" >
-                  剩余:<input type="text" name="rest" size="1">&nbsp;
+                  车序号
+                  <select id="busId" name="busId">
+                  </select>
+                  驾驶员编号
+                  <select id="driverId" name="driverId">
+                  </select>
+                  出发地：
+                  <select id="origin" name="origin">
+
+                  </select>
+                  目的地
+                  <select id="destination" name="destination">
+                  </select>
+                  出发时间:<input required type="datetime-local" name="departureTime" size="1" >
+                  剩余:<input required type="text" name="rest" size="1">&nbsp;
                   <br/>
                   <input type="submit" value="增加">
                 </form>
@@ -128,6 +137,66 @@
 <!-- Placed at the end of the document so the pages load faster -->
 <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
 <script type="text/javascript">
+
+
+  function handleOption() {
+
+    var Element = document.getElementById("origin");
+
+    var Element1 = document.getElementById("destination");
+
+    <c:forEach items="${applicationScope.stationList}" var="item" >
+
+
+    var name ='${item.position}';
+    var optionElement = document.createElement("option");//创建option元素
+    var optionElement1 = document.createElement("option");//创建option元素
+
+    optionElement.setAttribute("value", name);
+    optionElement.appendChild(document.createTextNode(name));
+
+    optionElement1.setAttribute("value", name);
+    optionElement1.appendChild(document.createTextNode(name));
+
+    Element.appendChild(optionElement);
+    Element1.appendChild(optionElement1);
+
+    </c:forEach>
+
+  }
+
+  function handleOption1() {
+
+    var Element = document.getElementById("driverId");
+
+    <c:forEach items="${applicationScope.driverDOList}" var="item" >
+
+    var name ='${item.id}';
+    var optionElement = document.createElement("option");//创建option元素
+    optionElement.setAttribute("value", name);
+    optionElement.appendChild(document.createTextNode(name));
+    Element.appendChild(optionElement);
+    </c:forEach>
+  }
+
+  function handleOption2() {
+
+    var Element = document.getElementById("busId");
+
+    <c:forEach items="${applicationScope.busDOList}" var="item" >
+
+    var name ='${item.id}';
+    var optionElement = document.createElement("option");//创建option元素
+    optionElement.setAttribute("value", name);
+    optionElement.appendChild(document.createTextNode(name));
+    Element.appendChild(optionElement);
+    </c:forEach>
+  }
+
+
+
+
+
   var a=b=0;
   //通过button按钮的id获取点击事件
   document.getElementById("addRoster").onclick = function (){
@@ -146,10 +215,20 @@
     }
   };
   window.onload=function (){
-    var str="${info}";
+    handleOption();
+    handleOption1();
+    handleOption2();
+    var str="${param.info}";
     if (str==="error"){
       alert("操作失败，数据不能为空");
     }
+
+      var str_2="${param.info1}";
+      if (str_2){
+        alert(str_2);
+
+      }
+
   };
 
 </script>

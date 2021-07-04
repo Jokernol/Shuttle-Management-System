@@ -12,6 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.List;
 
 
@@ -28,10 +29,11 @@ public class UserServlet extends BaseServlet {
 
         if (UserService.getInstance().register(userDTO)) {
             req.setAttribute("info", "success");
-            resp.sendRedirect("/login.jsp");
+            resp.sendRedirect("/index/login.jsp");
         } else {
             req.setAttribute("info","error");
-            req.getRequestDispatcher("/regist.jsp").forward(req,resp);
+//            req.getRequestDispatcher("/index/regist.jsp").forward(req,resp);
+            resp.sendRedirect("/index/regist.jsp");
         }
 
     }

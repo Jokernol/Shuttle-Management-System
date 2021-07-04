@@ -10,9 +10,8 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+
 import java.io.IOException;
-import java.util.List;
 
 /**
  * @author 王怀瑾
@@ -32,7 +31,23 @@ public class StationServlet extends BaseServlet {
 
         servletContext.setAttribute("stationList",StationService.getInstance().allStation() );
 
-        req.getRequestDispatcher("/adminHome/adminHome.jsp").forward(req, resp);
+        resp.sendRedirect("/adminHome/mapManage.jsp");
+
+//        req.getRequestDispatcher("/adminHome/mapManage.jsp").forward(req, resp);
 
     }
-}
+
+
+    protected void delete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String position = req.getParameter("position");
+
+        StationService.getInstance().deleteStation(position);
+
+        ServletContext servletContext = req.getServletContext();
+
+        servletContext.setAttribute("stationList",StationService.getInstance().allStation() );
+
+        resp.sendRedirect(req.getContextPath()+"/adminHome/mapManage.jsp");
+//        req.getRequestDispatcher(req.getContextPath()+"/adminHome/mapManage.jsp").forward(req, resp);
+
+    }}

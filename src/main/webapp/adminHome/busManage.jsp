@@ -50,7 +50,7 @@
         <li class="active"><a href="#">车辆信息汇总</a></li>
         <li><a href="/adminHome/rosterManage.jsp">排班信息汇总</a></li>
         <li><a href="/adminHome/driverManage.jsp">驾驶员信息汇总</a></li>
-        <li><a href="/adminHome/addStation.jsp">添加地图</a></li>
+        <li><a href="/adminHome/mapManage.jsp">车站管理</a></li>
 
       </ul>
     </div>
@@ -100,8 +100,8 @@
             <div class="addUser"><input type="button" id="addBus" value="增加班车"></div>
             <div class="form" id="form" style="display: none;">
               <form action="${pageContext.request.contextPath}/buses/post" method="post">
-                品牌:<input type="text" name="seat" size="7">&nbsp;
-                座位数:<input type="text" name="brand" size="7">&nbsp;
+                座位数:<input type="text" name="seat" size="7">&nbsp;
+                品牌:<input type="text" name="brand" size="7">&nbsp;
                 保险时间:<input type="text" name="insuranceDate" size="7">&nbsp;
                 行驶证:<input type="text" name="drivingLicense" size="7">&nbsp;
                 <input type="submit" value="增加">
@@ -140,10 +140,17 @@
 
 
   window.onload=function (){
-    var str="${info}";
+    var str="${param.info}";
     if (str==="error"){
       alert("操作失败，数据不能为空");
     }
+
+
+      var str_2='${param.info1}';
+      if (str_2==="操作错误"){
+        alert(str_2);
+
+      }
   }
 </script>
 

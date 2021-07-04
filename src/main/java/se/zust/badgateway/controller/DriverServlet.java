@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.List;
 
 /**
@@ -29,15 +30,20 @@ public class DriverServlet extends BaseServlet {
     protected void post(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         DriverDTO driverDTO= BeanUtils.Request2Bean(req,DriverDTO.class);
 
+        String info ;
         if(DriverService.getInstance().insertDriver(driverDTO)) {
-            req.setAttribute("info", "success");
+//            req.setAttribute("info", "success");
+
+            info ="success";
             ServletContext servletContext = req.getServletContext();
             servletContext.setAttribute("driverDOList", DriverService.getInstance().listDriver());
         } else {
-            req.setAttribute("info", "error");
+//            req.setAttribute("info", "error");
+            info = "error";
         }
 
-        req.getRequestDispatcher("/adminHome/driverManage.jsp").forward(req, resp);
+//        req.getRequestDispatcher("/adminHome/driverManage.jsp").forward(req, resp);
+        resp.sendRedirect("/adminHome/driverManage.jsp?info="+ URLEncoder.encode(info, "utf-8"));
     }
 
     /**
@@ -51,9 +57,11 @@ public class DriverServlet extends BaseServlet {
         ServletContext servletContext = req.getServletContext();
         servletContext.setAttribute("driverDOList", DriverService.getInstance().listDriver());
 
-        req.setAttribute("info", "success");
+//        req.setAttribute("info", "success");
+        String info = "success";
 
-        req.getRequestDispatcher("/adminHome/driverManage.jsp").forward(req, resp);
+//        req.getRequestDispatcher("/adminHome/driverManage.jsp").forward(req, resp);
+        resp.sendRedirect("/adminHome/driverManage.jsp?info="+ URLEncoder.encode(info, "utf-8"));
     }
 
     /**
@@ -62,15 +70,20 @@ public class DriverServlet extends BaseServlet {
     protected  void put(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         DriverDO driverDO = BeanUtils.Request2Bean(req, DriverDO.class);
 
+        String info ;
         if(DriverService.getInstance().updateDriver(driverDO)) {
             ServletContext servletContext = req.getServletContext();
             servletContext.setAttribute("driverDOList", DriverService.getInstance().listDriver());
-            req.setAttribute("info", "success");
+//            req.setAttribute("info", "success");
+
+            info = "success";
         } else {
-            req.setAttribute("info", "error");
+//            req.setAttribute("info", "error");
+            info = "error";
         }
 
-        req.getRequestDispatcher("/adminHome/driverManage.jsp").forward(req, resp);
+//        req.getRequestDispatcher("/adminHome/driverManage.jsp").forward(req, resp);
+        resp.sendRedirect("/adminHome/driverManage.jsp?info="+ URLEncoder.encode(info, "utf-8"));
     }
 
     /**
@@ -81,7 +94,8 @@ public class DriverServlet extends BaseServlet {
 
         req.setAttribute("driverDOList", driverDOList);
 
-        req.getRequestDispatcher("/adminHome/driverManage.jsp").forward(req, resp);
+//        req.getRequestDispatcher("/adminHome/driverManage.jsp").forward(req, resp);
+        resp.sendRedirect("/adminHome/driverManage.jsp");
     }
 
 }

@@ -59,7 +59,7 @@ public class AppointmentService {
         AppointmentDO appointmentDO = new AppointmentDO(userDO.getId(),rosterId);
         RosterDO rosterDO = mapper.getRosterById(rosterId);
         System.out.println(rosterDO.toString());
-        if (rosterDO.getRest()>=0){
+        if (rosterDO.getRest()>0){
             int i = rosterDO.getRest();
             System.out.println(i);
             List<AppointmentDO> appointmentList = mapper1.allAppointment();

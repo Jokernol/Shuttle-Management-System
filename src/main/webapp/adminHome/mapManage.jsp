@@ -61,23 +61,25 @@
     <!--侧边栏-->
     <div class="col-sm-3 col-md-2 sidebar">
       <ul class="nav nav-sidebar">
-        <li><a href="userHome.jsp">排班信息汇总</a></li>
-        <li class="active"><a href="#">地理信息汇总</a></li>
-        <li><a href="personalCenter.jsp">个人中心</a></li>
+        <li><a href="/adminHome/adminHome.jsp">用户信息汇总</a></li>
+        <li><a href="/adminHome/busManage.jsp">车辆信息汇总</a></li>
+        <li><a href="/adminHome/rosterManage.jsp">排班信息汇总</a></li>
+        <li><a href="/adminHome/driverManage.jsp">驾驶员信息汇总</a></li>
+        <li class="active"><a href="#">管理车站</a></li>
 
       </ul>
     </div>
 
     <div id="my_bgc" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
       <div id="mysub-header">
-        <h1 class="sub-header">地理信息汇总</h1>
+        <h1 class="sub-header">排班信息汇总</h1>
       </div>
       <div class="table-responsive">
         <div class="table table-striped">
           <div>
 
             <div id="data5">
-              <div style="font-size:18px;margin-left:155px;">地理信息</div>
+              <div style="font-size:18px;margin-left:155px;">地理信息  <a href="/adminHome/addStation.jsp" style="margin-left: 400px">添加车站</a></div>
 
               <div id="container"></div>
 
@@ -136,7 +138,7 @@
     clickable: true
   })
   temp1.on('dblclick',function(e){
-    var msg = "确定选择该车站？";
+    var msg = "确定删除该车站？";
     if (confirm(msg)==true){
       setform(e.target.getLabel().content);
     }else{
@@ -152,8 +154,9 @@
 
   </c:forEach>
   function setform(name){
-    window.location.href="${pageContext.request.contextPath}/appointments/get?name="+name;
+    window.location.href="${pageContext.request.contextPath}/stations/delete?position="+name;
   }
+
   window.onload=function (){
     var str="${param.info1}";
     if (str){

@@ -88,6 +88,13 @@
     }
     return  true;
   }
+  window.onload=function (){
+    var str="${param.info1}";
+    if (str){
+      alert(str);
+
+    }
+  }
 </script>
 <form action="${pageContext.request.contextPath}/stations/post" method="post">
   车站名:
@@ -96,5 +103,6 @@
   <input type="text" id="y" name="y" value=""  hidden/>
   <input onclick="return isNull()" value="提交" type="submit" >
 </form>
+<a href="/adminHome/mapManage.jsp"></a>
 </body>
 </html>

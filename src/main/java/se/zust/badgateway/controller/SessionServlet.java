@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.net.URLEncoder;
 
 /**
  * @author zhu
@@ -37,16 +38,20 @@ public class SessionServlet extends BaseServlet {
             switch (result) {
                 case 0:
                     httpSession.setAttribute("userDO", userDO);
-                    req.getRequestDispatcher("/adminHome/adminHome.jsp").forward(req, resp);
+//                    req.getRequestDispatcher("/adminHome/adminHome.jsp").forward(req, resp);
+                    resp.sendRedirect("/adminHome/adminHome.jsp");
                     break;
                 case 1:
                     httpSession.setAttribute("userDO", userDO);
                     httpSession.setAttribute("appointmentOfUser", RosterService.getInstance().getRosterOfUser(userDO.getId()));
-                    req.getRequestDispatcher("/userHome/userHome.jsp").forward(req, resp);
+//                    req.getRequestDispatcher("/userHome/userHome.jsp").forward(req, resp);
+                    resp.sendRedirect("/userHome/userHome.jsp");
                     break;
                 default:
-                    req.setAttribute("info", "error");
-                    req.getRequestDispatcher("/login.jsp").forward(req, resp);
+//                    req.setAttribute("info", "error");
+//                    req.getRequestDispatcher("/index/login.jsp").forward(req, resp);
+                    String info = "error";
+                    resp.sendRedirect("/index/login.jsp?info="+ URLEncoder.encode(info, "utf-8"));
                     break;
             }
 
@@ -61,6 +66,6 @@ public class SessionServlet extends BaseServlet {
         HttpSession httpSession = req.getSession();
         httpSession.invalidate();
 
-        resp.sendRedirect("/login.jsp");
+        resp.sendRedirect("/index/login.jsp");
     }
 }

@@ -50,7 +50,7 @@
         <li><a href="/adminHome/busManage.jsp">车辆信息汇总</a></li>
         <li><a href="/adminHome/rosterManage.jsp">排班信息汇总</a></li>
         <li><a href="/adminHome/driverManage.jsp">驾驶员信息汇总</a></li>
-        <li><a href="/adminHome/addStation.jsp">添加地图</a></li>
+        <li><a href="/adminHome/mapManage.jsp">管理车站</a></li>
 
 
       </ul>
@@ -135,10 +135,17 @@
   };
 
   window.onload=function (){
-    var str="${info}";
+    var str="${param.info}";
     if (str==="error"){
       alert("操作失败，数据不能为空");
     }
+
+      var str_2="${param.info1}";
+      if (str_2){
+        alert(str_2);
+
+      }
+
   }
 </script>
 

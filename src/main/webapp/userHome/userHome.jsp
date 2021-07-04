@@ -73,11 +73,11 @@
                   </tr>
                   <c:forEach items="${applicationScope.rosterDOList}" var="Roster">
                     <tr>
-                      <td>${Roster.busId}</td>
-                      <td>${Roster.driverId}</td>
-                      <td>${Roster.origin}</td>
-                      <td>${Roster.destination}</td>
-                      <td>${Roster.departureTime}</td>
+                      <td><input size="5px" style="border:none;outline:medium;" value="${Roster.busId}" readonly>&nbsp;&nbsp;&nbsp;</td>
+                      <td><input size="5px" style="border:none;outline:medium;" value="${Roster.driverId}" readonly>&nbsp;&nbsp;&nbsp;</td>
+                      <td>${Roster.origin}&nbsp;&nbsp;&nbsp;</td>
+                      <td>${Roster.destination}&nbsp;&nbsp;&nbsp;</td>
+                      <td>${Roster.departureTime}&nbsp;&nbsp;&nbsp;</td>
                       <td>${Roster.rest}</td>
                       <td><a name="appointment" id="appointment" href="${pageContext.request.contextPath}/appointments/post?rosterId=${Roster.id}">预约</a>&nbsp;&nbsp;&nbsp;&nbsp;</td>
                     </tr>
@@ -95,13 +95,14 @@
 <script>
   function appoinment(){
     var method=document.getElementById("appointment");
-    var result="${info}";
+    var result="${param.info}";
     if(method.innerText==="预约"&&result==="预约成功"){
           document.getElementById("appointment").innerText="取消预约";
     }else if (method.innerText==="取消预约"&&result==="取消预约成功"){
           document.getElementById("appointment").innerText="预约";
     }
   }
+
 
 
 </script>
